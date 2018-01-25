@@ -28,7 +28,18 @@ class HclMarshaller {
 	private static void processProperties(BlockBuilder builder, Map<String, Object> properties) {
 		properties.each {
 			entry ->
-				if (entry.value instanceof Map) {
+				if (entry.value instanceof FlatList) {
+					builder.addEmptyLine()
+					entry.value.each {
+						singleValue ->
+							builder.addLine("$entry.key {")
+							builder.startBlock()
+							processProperties(builder, singleValue as Map)
+							builder.endBlock()
+							builder.addLine("}")
+							builder.addEmptyLine()
+					}
+				} else if (entry.value instanceof Map) {
 					builder.addEmptyLine()
 					builder.addLine("$entry.key {")
 					builder.startBlock()

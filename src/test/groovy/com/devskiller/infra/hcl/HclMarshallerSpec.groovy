@@ -31,4 +31,25 @@ class HclMarshallerSpec extends Specification {
 					'    address_prefix               = "10.0.1.0/24"\n' +
 					'  }\n\n}\n'
 	}
+
+	def "should marshall flat list"() {
+		given:
+			FlatList rules = new FlatList()
+			rules.add(['name': 'rule1'])
+			rules.add(['name': 'rule2'])
+		when:
+			String resource = HclMarshaller.resource('azurerm_network_security_group', 'vpn', [
+					'name'         : 'nsg-vpn',
+					'security_rule': rules
+			])
+		then:
+			resource == 'resource "azurerm_network_security_group" "vpn" {\n' +
+					'  name                           = "nsg-vpn"\n\n' +
+					'  security_rule {\n' +
+					'    name                         = "rule1"\n' +
+					'  }\n\n' +
+					'  security_rule {\n' +
+					'    name                         = "rule2"\n' +
+					'  }\n\n}\n'
+	}
 }
