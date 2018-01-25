@@ -37,6 +37,7 @@ class DefaultConvention implements Convention {
 			case PublicIp: return 'ip'
 			case NetworkSecurityGroup: return 'nsg'
 			case LoadBalancer: return 'lb'
+			case LoadBalancer.BackendPool: return 'bap'
 			default: throw new IllegalStateException()
 		}
 	}
