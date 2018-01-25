@@ -48,6 +48,6 @@ class BlockBuilder {
 	}
 
 	BlockBuilder addProperty(String left, Object right) {
-		addLine("${left.padRight(32 - indents * 2)} = \"$right\"")
+		addLine("${left.padRight(33 - indents * 2)} = \"$right\"")
 	}
 }

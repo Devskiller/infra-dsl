@@ -36,4 +36,8 @@ class ResourceGroup {
 	String getDomainLabel(String[] names) {
 		return convention.getDomainName(this, names)
 	}
+
+	String getLoadBalancerFrontedConfigName(String name) {
+		return convention.getLoadBalancerFrontedConfigName(this, name)
+	}
 }

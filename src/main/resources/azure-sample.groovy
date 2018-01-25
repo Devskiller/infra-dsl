@@ -1,4 +1,5 @@
 import com.devskiller.infra.azure.Infrastructure
+import com.devskiller.infra.azure.resource.IpAllocationMethod
 import com.devskiller.infra.azure.resource.Protocol
 
 Infrastructure.resourceGroup('ci') {
@@ -38,9 +39,13 @@ Infrastructure.resourceGroup('ci') {
 					protocol Protocol.Both
 				}
 			}
+			loadBalancer {}
 		}
 		component('db') {
 			availabilitySet {}
+			loadBalancer {
+				privateIpAllocation IpAllocationMethod.Static
+			}
 		}
 	}
 

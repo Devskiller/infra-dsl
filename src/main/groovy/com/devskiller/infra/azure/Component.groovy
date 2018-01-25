@@ -1,9 +1,10 @@
 package com.devskiller.infra.azure
 
-import com.devskiller.infra.azure.internal.InfrastructureElement
-import com.devskiller.infra.azure.resource.AvailabilitySet
 import com.devskiller.infra.azure.internal.DslContext
+import com.devskiller.infra.azure.internal.InfrastructureElement
 import com.devskiller.infra.azure.internal.InfrastructureElementCollection
+import com.devskiller.infra.azure.resource.AvailabilitySet
+import com.devskiller.infra.azure.resource.LoadBalancer
 import com.devskiller.infra.azure.resource.NetworkSecurityGroup
 import com.devskiller.infra.azure.resource.PublicIp
 
@@ -27,6 +28,12 @@ class Component extends InfrastructureElementCollection {
 
 	void networkSecurityGroup(@DelegatesTo(NetworkSecurityGroup) Closure closure) {
 		entries << DslContext.create(new NetworkSecurityGroup(resourceGroup, name), closure)
+	}
+
+	void loadBalancer(@DelegatesTo(LoadBalancer) Closure closure) {
+		entries << DslContext.create(new LoadBalancer(resourceGroup, name,
+				entries.find { it instanceof PublicIp } as PublicIp),
+				closure)
 	}
 
 }

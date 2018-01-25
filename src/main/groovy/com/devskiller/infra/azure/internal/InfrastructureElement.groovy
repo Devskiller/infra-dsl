@@ -37,6 +37,10 @@ abstract class InfrastructureElement {
 		]
 	}
 
+	String dataSourceElementName() {
+		return "\${$resourceType.${elementName()}.id}"
+	}
+
 	private String elementName() {
 		resourceGroup.getResourceQualifier(this.class, resourceName ?: [] as String[])
 	}

@@ -8,7 +8,7 @@ class HclMarshallerSpec extends Specification {
 		when:
 			String provider = HclMarshaller.provider("azurerm")
 		then:
-			provider == 'provider "azurerm" {\n}\n'
+			provider == 'provider "azurerm" {\n}'
 	}
 
 	def "should marshall resource"() {
@@ -24,11 +24,11 @@ class HclMarshallerSpec extends Specification {
 			])
 		then:
 			resource == '\nresource "azurerm_virtual_network" "vnet" {\n' +
-					'  name                           = "vnet"\n' +
-					'  resource_group_name            = "ci"\n\n' +
+					'  name                            = "vnet"\n' +
+					'  resource_group_name             = "ci"\n\n' +
 					'  subnet {\n' +
-					'    name                         = "subnet1"\n' +
-					'    address_prefix               = "10.0.1.0/24"\n' +
+					'    name                          = "subnet1"\n' +
+					'    address_prefix                = "10.0.1.0/24"\n' +
 					'  }\n}\n'
 	}
 
@@ -44,12 +44,12 @@ class HclMarshallerSpec extends Specification {
 			])
 		then:
 			resource == '\nresource "azurerm_network_security_group" "vpn" {\n' +
-					'  name                           = "nsg-vpn"\n\n' +
+					'  name                            = "nsg-vpn"\n\n' +
 					'  security_rule {\n' +
-					'    name                         = "rule1"\n' +
+					'    name                          = "rule1"\n' +
 					'  }\n\n' +
 					'  security_rule {\n' +
-					'    name                         = "rule2"\n' +
+					'    name                          = "rule2"\n' +
 					'  }\n}\n'
 	}
 }
