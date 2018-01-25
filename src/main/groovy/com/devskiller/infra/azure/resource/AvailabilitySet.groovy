@@ -5,9 +5,9 @@ import com.devskiller.infra.azure.ResourceGroup
 
 class AvailabilitySet extends ComponentElement {
 
-	int updateDomains = 3
-	int faultDomains = 5
-	boolean managed = true
+	private int updateDomains = 3
+	private int faultDomains = 5
+	private boolean managed = true
 
 	AvailabilitySet(ResourceGroup resourceGroup, String componentName) {
 		super(resourceGroup, 'azurerm_availability_set', componentName)

@@ -9,7 +9,7 @@ abstract class InfrastructureElement {
 
 	private final String resourceType
 
-	private String[] names
+	private final String[] names
 
 	protected InfrastructureElement(ResourceGroup resourceGroup, String resourceType) {
 		this.resourceGroup = resourceGroup
@@ -23,7 +23,19 @@ abstract class InfrastructureElement {
 		this.names = [name]
 	}
 
-	Map<String, String> commonProperties() {
+	protected abstract Map getAsMap()
+
+	String renderElement() {
+		HclMarshaller.resource(resourceType,
+				elementName(),
+				elementProperties())
+	}
+
+	Map elementProperties() {
+		resourceGroup.wrapWithTags(commonProperties() + getAsMap())
+	}
+
+	private Map<String, String> commonProperties() {
 		[
 				'name'               : elementName(),
 				'resource_group_name': resourceGroup.getResourceQualifier(ResourceGroup.class),
@@ -31,15 +43,7 @@ abstract class InfrastructureElement {
 		]
 	}
 
-	protected abstract Map getAsMap()
-
-	String renderElement() {
-		HclMarshaller.resource(resourceType,
-				elementName(),
-				resourceGroup.wrapWithTags(commonProperties() + getAsMap()))
-	}
-
-	protected String elementName() {
+	private String elementName() {
 		resourceGroup.getResourceQualifier(this.class, names)
 	}
 

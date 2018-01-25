@@ -22,7 +22,7 @@ class Network extends InfrastructureElement {
 	}
 
 	void subnets(@DelegatesTo(SubnetList) Closure closure) {
-		this.subnetList = new SubnetList(resourceGroup)
+		this.subnetList = new SubnetList(resourceGroup, getNetworkCidr())
 		closure.delegate = subnetList
 		closure()
 	}

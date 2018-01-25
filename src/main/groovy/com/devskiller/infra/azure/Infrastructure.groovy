@@ -1,7 +1,7 @@
 package com.devskiller.infra.azure
 
-import com.devskiller.infra.azure.resource.Network
 import com.devskiller.infra.azure.internal.DslContext
+import com.devskiller.infra.azure.resource.Network
 
 class Infrastructure {
 

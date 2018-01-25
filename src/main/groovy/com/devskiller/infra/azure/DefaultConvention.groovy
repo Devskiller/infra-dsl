@@ -22,7 +22,7 @@ class DefaultConvention implements Convention {
 	}
 
 	private String prefix(ResourceGroup resourceGroup) {
-		"dvsk-$resourceGroup.name-" + resourceGroup.region.substring(0, 2) + resourceGroup.region.substring(5, 6)
+		return resourceGroup.name + "-" + resourceGroup.region.substring(0, 2) + resourceGroup.region.substring(5, 6)
 	}
 
 }
