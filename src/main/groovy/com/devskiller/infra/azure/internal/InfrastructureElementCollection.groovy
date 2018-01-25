@@ -4,8 +4,8 @@ import com.devskiller.infra.azure.ResourceGroup
 
 abstract class InfrastructureElementCollection extends InfrastructureElement {
 
-	protected InfrastructureElementCollection(ResourceGroup resourceGroup) {
-		super(resourceGroup, null)
+	protected InfrastructureElementCollection(ResourceGroup resourceGroup, String name = null) {
+		super(resourceGroup, name)
 	}
 
 	abstract List<? extends InfrastructureElement> getEntries()

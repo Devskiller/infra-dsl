@@ -1,4 +1,4 @@
 package com.devskiller.infra.hcl
 
-class FlatList extends ArrayList {
+class FlatList extends ArrayList<Map> {
 }

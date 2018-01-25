@@ -11,13 +11,7 @@ abstract class InfrastructureElement {
 
 	private final String resourceName
 
-	protected InfrastructureElement(ResourceGroup resourceGroup, String resourceType) {
-		this.resourceGroup = resourceGroup
-		this.resourceType = resourceType
-		this.resourceName = null
-	}
-
-	protected InfrastructureElement(ResourceGroup resourceGroup, String resourceType, String name) {
+	protected InfrastructureElement(ResourceGroup resourceGroup, String resourceType, String name = null) {
 		this.resourceGroup = resourceGroup
 		this.resourceType = resourceType
 		this.resourceName = name

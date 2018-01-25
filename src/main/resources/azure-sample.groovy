@@ -1,4 +1,5 @@
 import com.devskiller.infra.azure.Infrastructure
+import com.devskiller.infra.azure.resource.Protocol
 
 Infrastructure.resourceGroup('ci') {
 
@@ -24,6 +25,18 @@ Infrastructure.resourceGroup('ci') {
 			availabilitySet {}
 			publicIp {
 				generateDomainName true
+			}
+			networkSecurityGroup {
+				securityRule {
+					name 'rule1'
+					destinationPort 443
+					protocol Protocol.Tcp
+				}
+				securityRule {
+					name 'rule2'
+					destinationPort 22
+					protocol Protocol.Both
+				}
 			}
 		}
 		component('db') {

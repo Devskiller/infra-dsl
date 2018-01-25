@@ -1,9 +1,9 @@
 package com.devskiller.infra.azure.resource
 
-import com.devskiller.infra.azure.ComponentElement
 import com.devskiller.infra.azure.ResourceGroup
+import com.devskiller.infra.azure.internal.InfrastructureElement
 
-class AvailabilitySet extends ComponentElement {
+class AvailabilitySet extends InfrastructureElement {
 
 	private int updateDomains = 3
 	private int faultDomains = 5
