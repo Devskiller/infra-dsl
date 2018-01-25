@@ -16,6 +16,7 @@ class HclMarshallerSpec extends Specification {
 			String resource = HclMarshaller.resource('azurerm_virtual_network', 'vnet', [
 					'name'               : 'vnet',
 					'resource_group_name': 'ci',
+					'security_group'     : null,
 					'subnet'             : [
 							'name'          : 'subnet1',
 							'address_prefix': '10.0.1.0/24'

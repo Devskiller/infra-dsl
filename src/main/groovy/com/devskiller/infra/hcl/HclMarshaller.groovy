@@ -37,7 +37,9 @@ class HclMarshaller {
 					builder.addLine("}")
 					builder.addEmptyLine()
 				} else {
-					builder.addProperty(entry.key, entry.value)
+					if (entry.value) {
+						builder.addProperty(entry.key, entry.value)
+					}
 				}
 		}
 	}
