@@ -8,8 +8,13 @@ import com.devskiller.infra.azure.resource.Subnet
 class DefaultConvention implements Convention {
 
 	@Override
-	<RT> String getResourceQualifier(Class<RT> resourceType, ResourceGroup resourceGroup, String... resourceName) {
-		return prefix(resourceGroup) + "-" + String.join('-', [resourceId(resourceType), resourceName].flatten() as String[])
+	<RT> String getResourceQualifier(Class<RT> resourceType, ResourceGroup resourceGroup, String... resourceNames) {
+		return prefix(resourceGroup) + "-" + String.join('-', [resourceId(resourceType), resourceNames].flatten() as String[])
+	}
+
+	@Override
+	String getDomainName(ResourceGroup resourceGroup, String... resourceNames) {
+		return 'ci-' + String.join('-', resourceNames)
 	}
 
 	private String resourceId(Class resourceType) {

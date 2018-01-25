@@ -7,9 +7,12 @@ class PublicIp extends InfrastructureElement {
 
 	private IpAllocationMethod allocation = IpAllocationMethod.Dynamic
 	private String domainName
+	private boolean generateDomainName
+	private String name
 
 	PublicIp(ResourceGroup resourceGroup, String name) {
 		super(resourceGroup, 'azurerm_public_ip', name)
+		this.name = name
 	}
 
 	void allocation(IpAllocationMethod allocation) {
@@ -20,11 +23,19 @@ class PublicIp extends InfrastructureElement {
 		this.domainName = domainName
 	}
 
+	void generateDomainName(boolean generateDomainName) {
+		this.generateDomainName = generateDomainName
+	}
+
+	private String getDomainName() {
+		return generateDomainName ? resourceGroup.getDomainName(name) : domainName
+	}
+
 	@Override
 	protected Map getAsMap() {
 		[
 				'public_ip_address_allocation': allocation,
-				'domain_name_label'           : domainName
+				'domain_name_label'           : getDomainName()
 		]
 	}
 }

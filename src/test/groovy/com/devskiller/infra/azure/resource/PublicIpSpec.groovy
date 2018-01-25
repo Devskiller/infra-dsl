@@ -27,4 +27,18 @@ class PublicIpSpec extends ResourceGroupAwareSpec {
 			processedElement.get('public_ip_address_allocation') == IpAllocationMethod.Static
 			processedElement.get('domain_name_label') == 'test-web'
 	}
+
+	def "should render with generated domain name"() {
+		given:
+			PublicIp publicIp = new PublicIp(resourceGroup(), 'web')
+		when:
+			publicIp.allocation(IpAllocationMethod.Static)
+			publicIp.generateDomainName(true)
+			Map processedElement = publicIp.elementProperties()
+		then:
+			processedElement
+			processedElement.get('name') == 'test-weu-ip-web'
+			processedElement.get('public_ip_address_allocation') == IpAllocationMethod.Static
+			processedElement.get('domain_name_label') == 'ci-web'
+	}
 }

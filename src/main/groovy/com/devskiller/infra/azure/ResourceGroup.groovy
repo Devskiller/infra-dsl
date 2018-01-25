@@ -29,4 +29,7 @@ class ResourceGroup {
 		return convention.getResourceQualifier(resourceType, this, names)
 	}
 
+	String getDomainName(String[] names) {
+		return convention.getDomainName(this, names)
+	}
 }
