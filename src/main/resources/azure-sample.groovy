@@ -3,6 +3,9 @@ import com.devskiller.infra.azure.Infrastructure
 Infrastructure.resourceGroup('ci') {
 
 	region 'westeurope'
+	domainName 'devskiller.com'
+
+	dnsZone {}
 
 	network {
 		networkId 201
@@ -19,7 +22,9 @@ Infrastructure.resourceGroup('ci') {
 	components {
 		component('vpn') {
 			availabilitySet {}
-			publicIp {}
+			publicIp {
+				generateDomainName true
+			}
 		}
 		component('db') {
 			availabilitySet {}

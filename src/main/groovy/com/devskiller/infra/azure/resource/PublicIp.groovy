@@ -28,7 +28,7 @@ class PublicIp extends InfrastructureElement {
 	}
 
 	private String getDomainName() {
-		return generateDomainName ? resourceGroup.getDomainName(name) : domainName
+		return generateDomainName ? resourceGroup.getDomainLabel(name) : domainName
 	}
 
 	@Override

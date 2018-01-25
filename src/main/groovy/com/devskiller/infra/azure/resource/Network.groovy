@@ -39,7 +39,7 @@ class Network extends InfrastructureElement {
 
 	@Override
 	String renderElement() {
-		super.renderElement() + subnetList.renderElement()
+		super.renderElement() + subnetList?.renderElement()
 	}
 
 }

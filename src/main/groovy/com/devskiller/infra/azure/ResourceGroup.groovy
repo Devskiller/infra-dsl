@@ -6,6 +6,7 @@ class ResourceGroup {
 
 	String name
 	String region
+	String domainName
 
 	Convention convention = new DefaultConvention()
 
@@ -13,23 +14,26 @@ class ResourceGroup {
 		HclMarshaller.resource(
 				'azurerm_resource_group',
 				getResourceQualifier(ResourceGroup.class),
-				wrapWithTags([
-				'name'    : getResourceQualifier(ResourceGroup.class),
-				'location': region
-		]))
+				[
+						'name'    : getResourceQualifier(ResourceGroup.class),
+						'location': region
+				] + getCommonTags())
 
 	}
 
-	Map wrapWithTags(Map map) {
-		map.put("tags", ["env": name])
-		return map
+	Map getCommonTags(String componentName) {
+		Map tags = ['env': name]
+		if (componentName) {
+			tags << ['component': componentName]
+		}
+		return ['tags': tags]
 	}
 
 	def <RT> String getResourceQualifier(Class<RT> resourceType, String... names) {
 		return convention.getResourceQualifier(resourceType, this, names)
 	}
 
-	String getDomainName(String[] names) {
+	String getDomainLabel(String[] names) {
 		return convention.getDomainName(this, names)
 	}
 }

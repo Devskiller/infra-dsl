@@ -8,8 +8,9 @@ class ResourceGroupAwareSpec extends Specification {
 
 	ResourceGroup resourceGroup() {
 		ResourceGroup group = new ResourceGroup()
-		group.setName("test")
-		group.setRegion("westeurope")
+		group.setName('test')
+		group.setRegion('westeurope')
+		group.setDomainName('devskiller.com')
 		return group
 	}
 }
