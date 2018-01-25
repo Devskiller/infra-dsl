@@ -19,6 +19,7 @@ Infrastructure.resourceGroup('ci') {
 	components {
 		component('vpn') {
 			availabilitySet {}
+			publicIp {}
 		}
 		component('db') {
 			availabilitySet {}

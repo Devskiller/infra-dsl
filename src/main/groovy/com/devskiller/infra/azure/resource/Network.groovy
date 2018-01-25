@@ -1,5 +1,6 @@
 package com.devskiller.infra.azure.resource
 
+import com.devskiller.infra.azure.internal.DslContext
 import com.devskiller.infra.azure.internal.InfrastructureElement
 import com.devskiller.infra.azure.ResourceGroup
 
@@ -22,9 +23,7 @@ class Network extends InfrastructureElement {
 	}
 
 	void subnets(@DelegatesTo(SubnetList) Closure closure) {
-		this.subnetList = new SubnetList(resourceGroup, getNetworkCidr())
-		closure.delegate = subnetList
-		closure()
+		subnetList = DslContext.create(new SubnetList(resourceGroup, getNetworkCidr()), closure)
 	}
 
 	String getNetworkCidr() {
