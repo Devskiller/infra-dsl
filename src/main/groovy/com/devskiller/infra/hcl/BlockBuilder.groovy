@@ -21,10 +21,14 @@ class BlockBuilder {
 		return this
 	}
 
-	BlockBuilder addLine(String line) {
+	BlockBuilder append(String line) {
 		addIndentation()
-		builder << "$line\n"
+		builder << "$line"
 		return this
+	}
+
+	BlockBuilder addLine(String line) {
+		append("$line\n")
 	}
 
 	BlockBuilder addEmptyLine() {

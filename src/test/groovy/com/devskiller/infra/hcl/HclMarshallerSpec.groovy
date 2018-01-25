@@ -23,13 +23,13 @@ class HclMarshallerSpec extends Specification {
 					]
 			])
 		then:
-			resource == 'resource "azurerm_virtual_network" "vnet" {\n' +
+			resource == '\nresource "azurerm_virtual_network" "vnet" {\n' +
 					'  name                           = "vnet"\n' +
 					'  resource_group_name            = "ci"\n\n' +
 					'  subnet {\n' +
 					'    name                         = "subnet1"\n' +
 					'    address_prefix               = "10.0.1.0/24"\n' +
-					'  }\n\n}\n'
+					'  }\n}\n'
 	}
 
 	def "should marshall flat list"() {
@@ -43,13 +43,13 @@ class HclMarshallerSpec extends Specification {
 					'security_rule': rules
 			])
 		then:
-			resource == 'resource "azurerm_network_security_group" "vpn" {\n' +
+			resource == '\nresource "azurerm_network_security_group" "vpn" {\n' +
 					'  name                           = "nsg-vpn"\n\n' +
 					'  security_rule {\n' +
 					'    name                         = "rule1"\n' +
 					'  }\n\n' +
 					'  security_rule {\n' +
 					'    name                         = "rule2"\n' +
-					'  }\n\n}\n'
+					'  }\n}\n'
 	}
 }
