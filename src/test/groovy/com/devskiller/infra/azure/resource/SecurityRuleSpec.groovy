@@ -12,34 +12,34 @@ class SecurityRuleSpec extends Specification {
 			Map properties = rule.getAsMap()
 		then:
 			properties.get('name') == 'rule1'
-			properties.get('access') == Access.Allow
+			properties.get('access') == SecurityRule.Access.Allow
 			properties.get('protocol') == '*'
 			properties.get('source_port_range') == '*'
 			properties.get('destination_port_range') == '*'
 			properties.get('source_address_prefix') == '*'
 			properties.get('destination_address_prefix') == '*'
-			properties.get('destination') == Destination.Inbound
+			properties.get('destination') == SecurityRule.Destination.Inbound
 	}
 
 	def "should render customized"() {
 		given:
 			SecurityRule rule = new SecurityRule()
 			rule.name('rule1')
-			rule.access(Access.Deny)
-			rule.protocol(Protocol.Tcp)
+			rule.access(SecurityRule.Access.Deny)
+			rule.protocol(SecurityRule.RuleProtocol.Tcp)
 			rule.sourcePort(22)
 			rule.sourceAddress('10.2.1.0/24')
-			rule.destination(Destination.Outbound)
+			rule.destination(SecurityRule.Destination.Outbound)
 		when:
 			Map properties = rule.getAsMap()
 		then:
 			properties.get('name') == 'rule1'
-			properties.get('access') == Access.Deny
+			properties.get('access') == SecurityRule.Access.Deny
 			properties.get('protocol') == 'Tcp'
 			properties.get('source_port_range') == '22'
 			properties.get('destination_port_range') == '*'
 			properties.get('source_address_prefix') == '10.2.1.0/24'
 			properties.get('destination_address_prefix') == '*'
-			properties.get('destination') == Destination.Outbound
+			properties.get('destination') == SecurityRule.Destination.Outbound
 	}
 }

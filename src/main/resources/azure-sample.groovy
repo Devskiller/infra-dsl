@@ -1,6 +1,7 @@
 import com.devskiller.infra.azure.Infrastructure
 import com.devskiller.infra.azure.resource.IpAllocationMethod
-import com.devskiller.infra.azure.resource.Protocol
+import com.devskiller.infra.azure.resource.SecurityRule.RuleProtocol
+import com.devskiller.infra.azure.resource.LoadBalancer.ProbeProtocol
 
 Infrastructure.resourceGroup('ci') {
 
@@ -31,15 +32,21 @@ Infrastructure.resourceGroup('ci') {
 				securityRule {
 					name 'rule1'
 					destinationPort 443
-					protocol Protocol.Tcp
+					protocol RuleProtocol.Tcp
 				}
 				securityRule {
 					name 'rule2'
 					destinationPort 22
-					protocol Protocol.Both
+					protocol RuleProtocol.Both
 				}
 			}
-			loadBalancer {}
+			loadBalancer {
+				probe {
+					name "ssh"
+					port 22
+					protocol ProbeProtocol.Tcp
+				}
+			}
 		}
 		component('db') {
 			availabilitySet {}

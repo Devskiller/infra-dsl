@@ -4,7 +4,7 @@ class SecurityRule {
 
 	private String name
 	private Access access = Access.Allow
-	private Protocol protocol = Protocol.Both
+	private RuleProtocol protocol = RuleProtocol.Both
 	private Destination destination = Destination.Inbound
 	private String sourcePort = '*'
 	private String destinationPort = '*'
@@ -20,7 +20,7 @@ class SecurityRule {
 		this.access = access
 	}
 
-	void protocol(Protocol protocol) {
+	void protocol(RuleProtocol protocol) {
 		this.protocol = protocol
 	}
 
@@ -68,5 +68,23 @@ class SecurityRule {
 				'priority'                  : priority,
 				'destination'               : destination
 		]
+	}
+
+	static enum Access {
+		Allow, Deny
+	}
+
+	static enum RuleProtocol {
+		Tcp, Udp, Both('*')
+
+		final String label
+
+		RuleProtocol(String label = null) {
+			this.label = label ?: name()
+		}
+	}
+
+	static enum Destination {
+		Inbound, Outbound
 	}
 }

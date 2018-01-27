@@ -9,12 +9,18 @@ abstract class InfrastructureElement {
 
 	private final String resourceType
 
-	private final String resourceName
+	private final String componentName
 
-	protected InfrastructureElement(ResourceGroup resourceGroup, String resourceType, String name = null) {
+	private String elementName
+
+	protected InfrastructureElement(ResourceGroup resourceGroup, String resourceType, String componentName = null) {
 		this.resourceGroup = resourceGroup
 		this.resourceType = resourceType
-		this.resourceName = name
+		this.componentName = componentName
+	}
+
+	protected void setElementName(String elementName) {
+		this.elementName = elementName
 	}
 
 	protected abstract Map getAsMap()
@@ -26,13 +32,13 @@ abstract class InfrastructureElement {
 	}
 
 	Map elementProperties() {
-		commonProperties() + getAsMap() + resourceGroup.getCommonTags(resourceName)
+		commonProperties() + getAsMap() + resourceGroup.getCommonTags(componentName)
 	}
 
 	private Map<String, String> commonProperties() {
 		[
 				'name'               : elementName(),
-				'resource_group_name': resourceGroup.getResourceQualifier(ResourceGroup.class),
+				'resource_group_name': resourceGroup.getResourceQualifier(ResourceGroup.class, []),
 				'location'           : resourceGroup.region
 		]
 	}
@@ -42,7 +48,14 @@ abstract class InfrastructureElement {
 	}
 
 	private String elementName() {
-		resourceGroup.getResourceQualifier(this.class, resourceName ?: [] as String[])
+		List<String> names = []
+		if (componentName) {
+			names << componentName
+		}
+		if (elementName) {
+			names << elementName
+		}
+		resourceGroup.getResourceQualifier(this.class, names)
 	}
 
 }

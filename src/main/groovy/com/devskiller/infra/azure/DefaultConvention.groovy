@@ -11,7 +11,7 @@ import com.devskiller.infra.azure.resource.Subnet
 class DefaultConvention implements Convention {
 
 	@Override
-	<RT> String getResourceQualifier(Class<RT> resourceType, ResourceGroup resourceGroup, String... resourceNames) {
+	<RT> String getResourceQualifier(Class<RT> resourceType, ResourceGroup resourceGroup, List<String> resourceNames) {
 		if (resourceType == DnsZone) {
 			return resourceGroup.name + '.' + resourceGroup.domainName
 		}
@@ -23,11 +23,6 @@ class DefaultConvention implements Convention {
 		return concatenateElements([resourceGroup.name, resourceNames])
 	}
 
-	@Override
-	String getLoadBalancerFrontedConfigName(ResourceGroup resourceGroup, String resourceName) {
-		return concatenateElements([prefix(resourceGroup), 'fipc', resourceName])
-	}
-
 	private String resourceId(Class resourceType) {
 		switch (resourceType) {
 			case ResourceGroup: return 'rg'
@@ -37,7 +32,11 @@ class DefaultConvention implements Convention {
 			case PublicIp: return 'ip'
 			case NetworkSecurityGroup: return 'nsg'
 			case LoadBalancer: return 'lb'
+			case LoadBalancer.FrontendIpConfiguration: return 'fipc'
 			case LoadBalancer.BackendPool: return 'bap'
+			case LoadBalancer.Probe: return 'probe'
+			case LoadBalancer.Rule: return 'lbr'
+			case LoadBalancer.NatRule: return 'lbnr'
 			default: throw new IllegalStateException()
 		}
 	}

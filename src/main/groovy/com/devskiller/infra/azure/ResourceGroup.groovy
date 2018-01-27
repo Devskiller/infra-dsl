@@ -29,7 +29,7 @@ class ResourceGroup {
 		return ['tags': tags]
 	}
 
-	def <RT> String getResourceQualifier(Class<RT> resourceType, String... names) {
+	def <RT> String getResourceQualifier(Class<RT> resourceType, List<String> names = []) {
 		return convention.getResourceQualifier(resourceType, this, names)
 	}
 
@@ -37,7 +37,4 @@ class ResourceGroup {
 		return convention.getDomainName(this, names)
 	}
 
-	String getLoadBalancerFrontedConfigName(String name) {
-		return convention.getLoadBalancerFrontedConfigName(this, name)
-	}
 }
