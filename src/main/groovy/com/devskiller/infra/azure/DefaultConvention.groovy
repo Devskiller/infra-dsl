@@ -3,6 +3,7 @@ package com.devskiller.infra.azure
 import com.devskiller.infra.azure.resource.AvailabilitySet
 import com.devskiller.infra.azure.resource.DnsZone
 import com.devskiller.infra.azure.resource.LoadBalancer
+import com.devskiller.infra.azure.resource.VirtualMachine
 import com.devskiller.infra.azure.resource.Network
 import com.devskiller.infra.azure.resource.NetworkInterface
 import com.devskiller.infra.azure.resource.NetworkSecurityGroup
@@ -15,8 +16,11 @@ class DefaultConvention implements Convention {
 	<RT> String getResourceQualifier(Class<RT> resourceType, ResourceGroup resourceGroup, List<String> resourceNames) {
 		if (resourceType == DnsZone) {
 			return resourceGroup.name + '.' + resourceGroup.domainName
+		} else if (resourceType == VirtualMachine) {
+			return resourceGroup.name.substring(0, 1) + '-' + resourceGroup.region.substring(0, 2) + resourceGroup.region.substring(5, 6) + '-' + resourceNames.join()
+		} else {
+			return concatenateElements([prefix(resourceGroup), resourceId(resourceType), resourceNames])
 		}
-		return concatenateElements([prefix(resourceGroup), resourceId(resourceType), resourceNames])
 	}
 
 	@Override
@@ -40,6 +44,7 @@ class DefaultConvention implements Convention {
 			case LoadBalancer.NatRule: return 'lbnr'
 			case NetworkInterface: return 'ni'
 			case NetworkInterface.IpConfiguration: return 'nipc'
+			case VirtualMachine.Disk: return 'disk'
 			default: throw new IllegalStateException()
 		}
 	}

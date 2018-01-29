@@ -43,11 +43,11 @@ abstract class InfrastructureElement {
 		]
 	}
 
-	String dataSourceElementName() {
+	String dataSourceElementId() {
 		return "\${$resourceType.${elementName()}.id}"
 	}
 
-	private String elementName() {
+	protected String elementName() {
 		List<String> names = []
 		if (componentName) {
 			names << componentName

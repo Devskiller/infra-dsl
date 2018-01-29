@@ -74,7 +74,7 @@ class LoadBalancer extends InfrastructureElement {
 			]
 
 			if (publicIp) {
-				frontConfig << ['public_ip_address_id': publicIp.dataSourceElementName()]
+				frontConfig << ['public_ip_address_id': publicIp.dataSourceElementId()]
 			} else {
 				frontConfig << ['private_ip_address_allocation': privateIpAllocation.name()]
 			}
@@ -98,7 +98,7 @@ class LoadBalancer extends InfrastructureElement {
 		@Override
 		protected Map getAsMap() {
 			[
-					'loadbalancer_id': LoadBalancer.this.dataSourceElementName()
+					'loadbalancer_id': LoadBalancer.this.dataSourceElementId()
 			]
 		}
 	}
@@ -142,7 +142,7 @@ class LoadBalancer extends InfrastructureElement {
 		@Override
 		protected Map getAsMap() {
 			[
-					'loadbalancer_id'    : LoadBalancer.this.dataSourceElementName(),
+					'loadbalancer_id'    : LoadBalancer.this.dataSourceElementId(),
 					'port'               : port,
 					'protocol'           : protocol,
 					'request_path'       : requestPath,
@@ -181,7 +181,7 @@ class LoadBalancer extends InfrastructureElement {
 		@Override
 		protected Map getAsMap() {
 			return [
-					'loadbalancer_id'               : LoadBalancer.this.dataSourceElementName(),
+					'loadbalancer_id'               : LoadBalancer.this.dataSourceElementId(),
 					'frontend_ip_configuration_name': LoadBalancer.this.frontendIpConfiguration.name(),
 					'protocol'                      : protocol,
 					'backend_port'                  : backendPort,

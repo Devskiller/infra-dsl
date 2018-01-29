@@ -7,7 +7,7 @@ import com.devskiller.infra.azure.resource.AvailabilitySet
 import com.devskiller.infra.azure.resource.LoadBalancer
 import com.devskiller.infra.azure.resource.NetworkSecurityGroup
 import com.devskiller.infra.azure.resource.PublicIp
-import com.devskiller.infra.azure.resource.VirtualMachines
+import com.devskiller.infra.azure.resource.MachineSet
 
 class Component extends InfrastructureElementCollection {
 
@@ -38,11 +38,13 @@ class Component extends InfrastructureElementCollection {
 				closure)
 	}
 
-	void virtualMachines(@DelegatesTo(VirtualMachines) Closure closure) {
+	void virtualMachines(@DelegatesTo(MachineSet) Closure closure) {
 		entries << DslContext.create(
-				new VirtualMachines(resourceGroup, name,
+				new MachineSet(resourceGroup, name,
 						findDependantElement(NetworkSecurityGroup),
-						findDependantElement(LoadBalancer)),
+						findDependantElement(LoadBalancer),
+						findDependantElement(AvailabilitySet)
+				),
 				closure)
 	}
 

@@ -53,6 +53,14 @@ Infrastructure.resourceGroup('ci') {
 					subnetName 'app'
 					enableAcceleratedNetworking true
 				}
+				instance {
+					size 'Standard_A0'
+					image {
+						publisher 'OpenLogic'
+						offer 'CentOS'
+						sku '7.3'
+					}
+				}
 			}
 		}
 	}

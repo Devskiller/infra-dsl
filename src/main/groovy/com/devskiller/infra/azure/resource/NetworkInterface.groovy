@@ -38,7 +38,7 @@ class NetworkInterface extends InfrastructureElement {
 		Map ipConfig = ['enable_accelerated_networking': enableAcceleratedNetworking]
 
 		if (networkSecurityGroup) {
-			ipConfig << ['network_security_group_id': networkSecurityGroup.dataSourceElementName()]
+			ipConfig << ['network_security_group_id': networkSecurityGroup.dataSourceElementId()]
 		}
 
 		ipConfig << ipConfiguration.getAsMap()
@@ -55,17 +55,17 @@ class NetworkInterface extends InfrastructureElement {
 		protected Map getAsMap() {
 			Map frontConfig = [
 					'name'                         : name(),
-					'subnet_id'                    : new Subnet(NetworkInterface.this.resourceGroup, subnetName, null).dataSourceElementName(),
+					'subnet_id'                    : new Subnet(NetworkInterface.this.resourceGroup, subnetName, null).dataSourceElementId(),
 					'private_ip_address_allocation': privateIpAllocation.name()
 			]
 
 			if (loadBalancer) {
-				frontConfig << ['load_balancer_backend_address_pools_ids': [loadBalancer.getBackendPool().dataSourceElementName()]]
+				frontConfig << ['load_balancer_backend_address_pools_ids': [loadBalancer.getBackendPool().dataSourceElementId()]]
 
 				if (loadBalancer.getNatRules()) {
 					List<String> natRules = loadBalancer.getNatRules().collect {
 						natRule ->
-							natRule.dataSourceElementName()
+							natRule.dataSourceElementId()
 					}
 					frontConfig << ['load_balancer_inbound_nat_rules_ids': natRules]
 				}
