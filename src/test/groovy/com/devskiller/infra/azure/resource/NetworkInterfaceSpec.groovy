@@ -13,6 +13,7 @@ class NetworkInterfaceSpec extends ResourceGroupAwareSpec {
 		then:
 			properties
 			properties.get('name') == 'test-weu-ni-db-1'
+			properties.get('enable_accelerated_networking') == false
 		and:
 			Map ipConfiguration = properties.get('ip_configuration')
 			ipConfiguration.get('subnet_id') == '${azurerm_subnet.test-weu-subnet-app.id}'
@@ -34,6 +35,7 @@ class NetworkInterfaceSpec extends ResourceGroupAwareSpec {
 			networkInterface.setElementName('2')
 			networkInterface.privateIpAllocation(IpAllocationMethod.Static)
 			networkInterface.subnetName('app')
+			networkInterface.enableAcceleratedNetworking(true)
 		when:
 			Map properties = networkInterface.elementProperties()
 		then:
@@ -41,6 +43,7 @@ class NetworkInterfaceSpec extends ResourceGroupAwareSpec {
 			properties
 			properties.get('name') == 'test-weu-ni-db-2'
 			properties.get('network_security_group_id') == '${azurerm_network_security_group.test-weu-nsg-db.id}'
+			properties.get('enable_accelerated_networking') == true
 		and:
 			Map ipConfiguration = properties.get('ip_configuration')
 			ipConfiguration.get('subnet_id') == '${azurerm_subnet.test-weu-subnet-app.id}'

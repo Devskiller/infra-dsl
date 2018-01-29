@@ -51,6 +51,7 @@ Infrastructure.resourceGroup('ci') {
 				count 2
 				networkInterface {
 					subnetName 'app'
+					enableAcceleratedNetworking true
 				}
 			}
 		}

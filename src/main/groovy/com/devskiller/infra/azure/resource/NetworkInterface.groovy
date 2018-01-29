@@ -10,6 +10,8 @@ class NetworkInterface extends InfrastructureElement {
 
 	private final IpConfiguration ipConfiguration = new IpConfiguration()
 
+	private boolean enableAcceleratedNetworking = false
+
 	protected NetworkInterface(ResourceGroup resourceGroup, String componentName,
 	                           NetworkSecurityGroup networkSecurityGroup,
 	                           LoadBalancer loadBalancer) {
@@ -27,13 +29,20 @@ class NetworkInterface extends InfrastructureElement {
 		this.ipConfiguration.privateIpAllocation = privateIpAllocation
 	}
 
+	void enableAcceleratedNetworking(boolean enableAcceleratedNetworking) {
+		this.enableAcceleratedNetworking = enableAcceleratedNetworking
+	}
+
 	@Override
 	protected Map getAsMap() {
-		Map ipConfig = ipConfiguration.getAsMap()
+		Map ipConfig = ['enable_accelerated_networking': enableAcceleratedNetworking]
 
 		if (networkSecurityGroup) {
 			ipConfig << ['network_security_group_id': networkSecurityGroup.dataSourceElementName()]
 		}
+
+		ipConfig << ipConfiguration.getAsMap()
+
 		return ipConfig
 	}
 
