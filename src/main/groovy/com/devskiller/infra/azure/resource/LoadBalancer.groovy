@@ -1,5 +1,7 @@
 package com.devskiller.infra.azure.resource
 
+import groovy.transform.PackageScope
+
 import com.devskiller.infra.azure.ResourceGroup
 import com.devskiller.infra.azure.internal.DslContext
 import com.devskiller.infra.azure.internal.InfrastructureElement
@@ -36,6 +38,16 @@ class LoadBalancer extends InfrastructureElement {
 
 	void natRule(@DelegatesTo(NatRule) Closure closure) {
 		natRules << DslContext.create(new NatRule(resourceGroup, name), closure)
+	}
+
+	@PackageScope
+	BackendPool getBackendPool() {
+		return backendPool
+	}
+
+	@PackageScope
+	List<NatRule> getNatRules() {
+		return natRules
 	}
 
 	@Override

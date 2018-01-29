@@ -47,11 +47,11 @@ Infrastructure.resourceGroup('ci') {
 					protocol ProbeProtocol.Tcp
 				}
 			}
-		}
-		component('db') {
-			availabilitySet {}
-			loadBalancer {
-				privateIpAllocation IpAllocationMethod.Static
+			virtualMachines {
+				count 2
+				networkInterface {
+					subnetName 'app'
+				}
 			}
 		}
 	}

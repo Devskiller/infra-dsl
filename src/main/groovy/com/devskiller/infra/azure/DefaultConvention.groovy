@@ -4,6 +4,7 @@ import com.devskiller.infra.azure.resource.AvailabilitySet
 import com.devskiller.infra.azure.resource.DnsZone
 import com.devskiller.infra.azure.resource.LoadBalancer
 import com.devskiller.infra.azure.resource.Network
+import com.devskiller.infra.azure.resource.NetworkInterface
 import com.devskiller.infra.azure.resource.NetworkSecurityGroup
 import com.devskiller.infra.azure.resource.PublicIp
 import com.devskiller.infra.azure.resource.Subnet
@@ -37,6 +38,8 @@ class DefaultConvention implements Convention {
 			case LoadBalancer.Probe: return 'probe'
 			case LoadBalancer.Rule: return 'lbr'
 			case LoadBalancer.NatRule: return 'lbnr'
+			case NetworkInterface: return 'ni'
+			case NetworkInterface.IpConfiguration: return 'nipc'
 			default: throw new IllegalStateException()
 		}
 	}
