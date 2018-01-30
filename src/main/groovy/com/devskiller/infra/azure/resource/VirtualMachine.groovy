@@ -10,7 +10,10 @@ class VirtualMachine extends InfrastructureElement {
 	private final NetworkInterface networkInterface
 
 	private String size = 'Standard_A0'
+	private Family family = Family.Linux
+
 	private Image image = new Image()
+	private OsProfile osProfile = new OsProfile()
 	private Disk disk
 
 	protected VirtualMachine(ResourceGroup resourceGroup, String componentName, AvailabilitySet availabilitySet) {
@@ -28,6 +31,10 @@ class VirtualMachine extends InfrastructureElement {
 		DslContext.create(image, closure)
 	}
 
+	void osProfile(@DelegatesTo(OsProfile) Closure closure) {
+		DslContext.create(osProfile, closure)
+	}
+
 	@Override
 	protected void setElementName(String elementName) {
 		super.setElementName(elementName)
@@ -39,8 +46,7 @@ class VirtualMachine extends InfrastructureElement {
 	protected Map getAsMap() {
 		Map map = [
 				'network_interface_ids': [networkInterface.dataSourceElementId()],
-				'size'                 : size,
-				'storage_os_disk'      : disk.getAsMap()
+				'size'                 : size
 		]
 
 
@@ -48,7 +54,9 @@ class VirtualMachine extends InfrastructureElement {
 			map << ['availability_set_id': availabilitySet.dataSourceElementId()]
 		}
 
+		map << ['storage_os_disk': disk.getAsMap()]
 		map << image.getAsMap()
+		map << osProfile.getAsMap()
 
 		return map
 	}
@@ -61,7 +69,10 @@ class VirtualMachine extends InfrastructureElement {
 
 		@Override
 		protected Map getAsMap() {
-			['name': elementName()]
+			[
+					'name'         : elementName(),
+					'create_option': 'FromImage'
+			]
 		}
 	}
 
@@ -92,5 +103,47 @@ class VirtualMachine extends InfrastructureElement {
 					 ]
 			]
 		}
+	}
+
+	private class OsProfile {
+
+		private String adminUsername
+		private String adminPassword
+		private boolean disablePasswordAuthentication = false
+
+		void adminUsername(String adminUsername) {
+			this.adminUsername = adminUsername
+		}
+
+		void adminPassword(String adminPassword) {
+			this.adminPassword = adminPassword
+		}
+
+		void disablePasswordAuthentication(boolean disablePasswordAuthentication) {
+			this.disablePasswordAuthentication = disablePasswordAuthentication
+		}
+
+		Map getAsMap() {
+			Map map = ['os_profile':
+					           [
+							           'computer_name' : VirtualMachine.this.elementName(),
+							           'admin_username': adminUsername,
+							           'admin_password': adminPassword,
+					           ]
+			]
+			if (VirtualMachine.this.family == Family.Linux) {
+				map << ['os_profile_linux_config':
+						        ['disable_password_authentication': disablePasswordAuthentication]
+				]
+			} else {
+				map << ['os_profile_windows_config': [:]]
+			}
+			return map
+		}
+	}
+
+	enum Family {
+
+		Linux, Windows
 	}
 }

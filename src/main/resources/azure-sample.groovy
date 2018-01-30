@@ -60,6 +60,10 @@ Infrastructure.resourceGroup('ci') {
 						offer 'CentOS'
 						sku '7.3'
 					}
+					osProfile {
+						adminUsername 'root'
+						adminPassword 'password'
+					}
 				}
 			}
 		}
