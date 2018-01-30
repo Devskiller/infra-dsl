@@ -58,4 +58,9 @@ abstract class InfrastructureElement {
 		resourceGroup.getResourceQualifier(this.class, names)
 	}
 
+	void call(Closure closure) {
+		closure.delegate = this
+		closure.call()
+	}
+
 }
