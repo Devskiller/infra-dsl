@@ -17,6 +17,7 @@ class HclMarshallerSpec extends Specification {
 					'name'               : 'vnet',
 					'resource_group_name': 'ci',
 					'security_group'     : null,
+					'hidden_network'     : false,
 					'subnet'             : [
 							'name'          : 'subnet1',
 							'address_prefix': '10.0.1.0/24'
@@ -25,7 +26,8 @@ class HclMarshallerSpec extends Specification {
 		then:
 			resource == '\nresource "azurerm_virtual_network" "vnet" {\n' +
 					'  name                            = "vnet"\n' +
-					'  resource_group_name             = "ci"\n\n' +
+					'  resource_group_name             = "ci"\n' +
+					'  hidden_network                  = "false"\n\n' +
 					'  subnet {\n' +
 					'    name                          = "subnet1"\n' +
 					'    address_prefix                = "10.0.1.0/24"\n' +
