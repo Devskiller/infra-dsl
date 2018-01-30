@@ -47,7 +47,10 @@ class Infrastructure {
 	}
 
 	String render() {
-		resourceGroup.render() + '\n' + network?.renderElement() + '\n' + dnsZone?.renderElement() + '\n' + components?.renderElement()
+		resourceGroup?.render() ?: '' + '\n' +
+				network?.renderElement() ?: '' + '\n' +
+				dnsZone?.renderElement() ?: '' + '\n' +
+				components?.renderElement() ?: ''
 	}
 
 }
