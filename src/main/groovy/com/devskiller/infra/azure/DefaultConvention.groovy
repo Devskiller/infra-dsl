@@ -13,13 +13,13 @@ import com.devskiller.infra.azure.resource.Subnet
 class DefaultConvention implements Convention {
 
 	@Override
-	<RT> String getResourceQualifier(Class<RT> resourceType, ResourceGroup resourceGroup, List<String> resourceNames) {
+	<RT> String getResourceQualifier(Class<RT> resourceType, String namePrefix, ResourceGroup resourceGroup, List<String> resourceNames) {
 		if (resourceType == DnsZone) {
 			return resourceGroup.name + '.' + resourceGroup.domainName
 		} else if (resourceType == VirtualMachine) {
 			return resourceGroup.name.substring(0, 1) + '-' + resourceGroup.region.substring(0, 2) + resourceGroup.region.substring(5, 6) + '-' + resourceNames.join()
 		} else {
-			return concatenateElements([prefix(resourceGroup), resourceId(resourceType), resourceNames])
+			return concatenateElements([namePrefix, prefix(resourceGroup), resourceId(resourceType), resourceNames])
 		}
 	}
 
@@ -54,7 +54,7 @@ class DefaultConvention implements Convention {
 	}
 
 	private String concatenateElements(List<Serializable> nameElements) {
-		String.join('-', nameElements.flatten() as String[])
+		String.join('-', nameElements.flatten().findAll({it != null}) as String[])
 	}
 
 }

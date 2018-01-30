@@ -14,12 +14,14 @@ class Infrastructure {
 
 	Components components
 
-	Infrastructure(String name) {
+	Infrastructure(String name, String prefix) {
 		this.resourceGroup.name = name
+		this.resourceGroup.prefix = prefix
 	}
 
-	static Infrastructure resourceGroup(String name, @DelegatesTo(Infrastructure) Closure closure) {
-		return DslContext.create(new Infrastructure(name), closure)
+	static Infrastructure resourceGroup(String name, String prefix = null,
+	                                    @DelegatesTo(Infrastructure) Closure closure) {
+		return DslContext.create(new Infrastructure(name, prefix), closure)
 	}
 
 	void region(String region) {
@@ -47,10 +49,13 @@ class Infrastructure {
 	}
 
 	String render() {
-		resourceGroup?.render() ?: '' + '\n' +
-				network?.renderElement() ?: '' + '\n' +
-				dnsZone?.renderElement() ?: '' + '\n' +
-				components?.renderElement() ?: ''
+		String.join('\n',
+				[
+						resourceGroup?.render(),
+						network?.renderElement(),
+						dnsZone?.renderElement(),
+						components?.renderElement()
+				].findAll({ it != null }))
 	}
 
 }

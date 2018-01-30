@@ -1,16 +1,24 @@
 package com.devskiller.infra.azure
 
+import com.devskiller.infra.azure.internal.InfraException
 import com.devskiller.infra.hcl.HclMarshaller
 
 class ResourceGroup {
 
 	String name
+	String prefix
 	String region
 	String domainName
 
 	Convention convention = new DefaultConvention()
 
 	String render() {
+		if (!name) {
+			throw new InfraException('Resource group name must not be empty')
+		}
+		if (!region) {
+			throw new InfraException('Resource group region must not be empty')
+		}
 		HclMarshaller.resource(
 				'azurerm_resource_group',
 				getResourceQualifier(ResourceGroup.class),
@@ -30,7 +38,7 @@ class ResourceGroup {
 	}
 
 	def <RT> String getResourceQualifier(Class<RT> resourceType, List<String> names = []) {
-		return convention.getResourceQualifier(resourceType, this, names)
+		return convention.getResourceQualifier(resourceType, prefix, this, names)
 	}
 
 	String getDomainLabel(String[] names) {
