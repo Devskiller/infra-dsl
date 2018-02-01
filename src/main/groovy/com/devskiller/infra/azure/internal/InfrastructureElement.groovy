@@ -2,6 +2,7 @@ package com.devskiller.infra.azure.internal
 
 import com.devskiller.infra.azure.ResourceGroup
 import com.devskiller.infra.hcl.HclMarshaller
+import com.devskiller.infra.hcl.HclUtil
 
 abstract class InfrastructureElement {
 
@@ -57,7 +58,7 @@ abstract class InfrastructureElement {
 	}
 
 	String dataSourceElementId() {
-		return "\${$resourceType.${elementName()}.id}"
+		return "\${$resourceType.${HclUtil.escapeResourceName(elementName())}.id}"
 	}
 
 	protected String elementName() {

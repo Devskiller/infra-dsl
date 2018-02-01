@@ -17,7 +17,7 @@ class HclMarshaller {
 	private static String processElement(String elementType, String type, String name, Map<String, Object> properties) {
 		BlockBuilder builder = new BlockBuilder()
 		builder.addEmptyLine()
-				.addLine("$elementType \"$type\" \"$name\" {")
+				.addLine("$elementType \"$type\" \"${HclUtil.escapeResourceName(name)}\" {")
 				.startBlock()
 
 		processProperties(builder, properties)

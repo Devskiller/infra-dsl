@@ -54,4 +54,20 @@ class HclMarshallerSpec extends Specification {
 					'    name                          = "rule2"\n' +
 					'  }\n}\n'
 	}
+
+	def "should escape dots in resource name"() {
+		given:
+			FlatList rules = new FlatList()
+			rules.add(['name': 'rule1'])
+			rules.add(['name': 'rule2'])
+		when:
+			String resource = HclMarshaller.resource('azurerm_dns_zone', 'vpn.acme.com', [
+					'name'     : 'vpn.acme.com'
+			])
+		then:
+			resource == '\nresource "azurerm_dns_zone" "vpn_acme_com" {\n' +
+					'  name                            = "vpn.acme.com"\n' +
+					'}\n'
+	}
+
 }
