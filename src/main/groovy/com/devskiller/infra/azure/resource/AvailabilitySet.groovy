@@ -5,8 +5,8 @@ import com.devskiller.infra.azure.internal.InfrastructureElement
 
 class AvailabilitySet extends InfrastructureElement {
 
-	private int updateDomains = 3
-	private int faultDomains = 5
+	private int updateDomains = 5
+	private int faultDomains = 3
 	private boolean managed = true
 
 	AvailabilitySet(ResourceGroup resourceGroup, String componentName) {

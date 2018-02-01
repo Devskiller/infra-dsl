@@ -24,8 +24,8 @@ class DefaultConvention implements Convention {
 	}
 
 	@Override
-	String getDomainName(ResourceGroup resourceGroup, String... resourceNames) {
-		return concatenateElements([resourceGroup.name, resourceNames])
+	String getDomainName(String prefix, ResourceGroup resourceGroup, String... resourceNames) {
+		return concatenateElements([prefix, resourceGroup.name, resourceNames])
 	}
 
 	private String resourceId(Class resourceType) {

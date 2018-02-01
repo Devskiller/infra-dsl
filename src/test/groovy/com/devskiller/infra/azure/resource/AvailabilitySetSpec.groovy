@@ -10,8 +10,8 @@ class AvailabilitySetSpec extends ResourceGroupAwareSpec {
 		then:
 			processedElement
 			processedElement.get('name') == 'test-weu-as-db'
-			processedElement.get('platform_update_domain_count') == 3
-			processedElement.get('platform_fault_domain_count') == 5
+			processedElement.get('platform_update_domain_count') == 5
+			processedElement.get('platform_fault_domain_count') == 3
 			processedElement.get('managed') == true
 	}
 

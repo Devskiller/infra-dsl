@@ -10,6 +10,11 @@ class DnsZone extends InfrastructureElement {
 	}
 
 	@Override
+	Map elementProperties() {
+		elementProperties(false)
+	}
+
+	@Override
 	protected Map getAsMap() {
 		[:]
 	}

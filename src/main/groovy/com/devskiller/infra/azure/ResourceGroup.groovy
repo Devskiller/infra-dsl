@@ -42,7 +42,7 @@ class ResourceGroup {
 	}
 
 	String getDomainLabel(String[] names) {
-		return convention.getDomainName(this, names)
+		return convention.getDomainName(prefix, this, names)
 	}
 
 }
