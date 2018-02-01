@@ -31,14 +31,27 @@ abstract class InfrastructureElement {
 				elementProperties())
 	}
 
-	Map elementProperties() {
-		commonProperties() + getAsMap() + resourceGroup.getCommonTags(componentName)
+	Map elementProperties(boolean includeLocation = true, boolean  includeTags = true) {
+		Map<String, String> properties = commonProperties()
+		if (includeLocation) {
+			properties << location()
+		}
+		properties << getAsMap()
+		if (includeTags) {
+			properties << resourceGroup.getCommonTags(componentName)
+		}
+		return properties
 	}
 
-	private Map<String, String> commonProperties() {
+	Map<String, String> commonProperties() {
 		[
 				'name'               : elementName(),
-				'resource_group_name': resourceGroup.getResourceQualifier(ResourceGroup.class, []),
+				'resource_group_name': resourceGroup.getResourceQualifier(ResourceGroup.class, [])
+		]
+	}
+
+	Map<String, String> location() {
+		[
 				'location'           : resourceGroup.region
 		]
 	}

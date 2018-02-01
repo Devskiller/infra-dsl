@@ -10,6 +10,8 @@ class SubnetSpec extends ResourceGroupAwareSpec {
 			Map elementProperties = subnet.elementProperties()
 		then:
 			elementProperties.get('name') == 'test-weu-subnet-dmz'
-			elementProperties.get('address_space') == '10.1.12.0/24'
+			elementProperties.get('address_prefix') == '10.1.12.0/24'
+			!elementProperties.containsKey('location')
+			!elementProperties.containsKey('tags')
 	}
 }

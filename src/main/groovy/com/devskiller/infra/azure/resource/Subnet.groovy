@@ -18,7 +18,14 @@ class Subnet extends InfrastructureElement {
 		this.subnetId = id
 	}
 
+	Map elementProperties() {
+		elementProperties(false, false)
+	}
+
 	Map getAsMap() {
-		['address_space':new Cidr(networkCidr).getSubnetCidr(subnetId)]
+		[
+				'address_prefix'      : new Cidr(networkCidr).getSubnetCidr(subnetId),
+				'virtual_network_name': resourceGroup.getResourceQualifier(Network.class)
+		]
 	}
 }

@@ -8,6 +8,6 @@ class InfraException extends RuntimeException {
 
 	@Override
 	Throwable fillInStackTrace() {
-		return this;
+		return this
 	}
 }

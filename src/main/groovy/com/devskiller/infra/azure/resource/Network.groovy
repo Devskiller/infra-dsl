@@ -33,7 +33,7 @@ class Network extends InfrastructureElement {
 	@Override
 	Map getAsMap() {
 		return [
-				'address_space': networkCidr
+				'address_space': [networkCidr]
 		]
 	}
 

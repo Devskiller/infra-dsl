@@ -1,7 +1,7 @@
 import com.devskiller.infra.azure.Infrastructure
-import com.devskiller.infra.azure.resource.IpAllocationMethod
-import com.devskiller.infra.azure.resource.SecurityRule.RuleProtocol
 import com.devskiller.infra.azure.resource.LoadBalancer.ProbeProtocol
+import com.devskiller.infra.azure.resource.NetworkSecurityGroup
+import com.devskiller.infra.azure.resource.SecurityRule.RuleProtocol
 
 Infrastructure.resourceGroup('ci') {
 
@@ -29,15 +29,10 @@ Infrastructure.resourceGroup('ci') {
 				generateDomainName true
 			}
 			networkSecurityGroup {
+				defaultSecurityRules(delegate)
 				securityRule {
-					name 'rule1'
-					destinationPort 443
-					protocol RuleProtocol.Tcp
-				}
-				securityRule {
-					name 'rule2'
-					destinationPort 22
-					protocol RuleProtocol.Both
+					name 'metrics'
+					destinationPort 9998
 				}
 			}
 			loadBalancer {
@@ -50,7 +45,7 @@ Infrastructure.resourceGroup('ci') {
 			virtualMachines {
 				count 2
 				networkInterface {
-					subnetName 'app'
+					subnetName 'vpn'
 					enableAcceleratedNetworking true
 				}
 				instance {
@@ -66,6 +61,23 @@ Infrastructure.resourceGroup('ci') {
 					}
 				}
 			}
+		}
+	}
+
+}
+
+void defaultSecurityRules(NetworkSecurityGroup networkSecurityGroup) {
+	networkSecurityGroup {
+		securityRule {
+			name 'rule1'
+			destinationPort 443
+			protocol RuleProtocol.Tcp
+
+		}
+		securityRule {
+			name 'rule2'
+			destinationPort 22
+			protocol RuleProtocol.Both
 		}
 	}
 

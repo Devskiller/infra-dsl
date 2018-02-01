@@ -10,7 +10,7 @@ class NetworkSpec extends ResourceGroupAwareSpec {
 		then:
 			elementProperties
 			elementProperties.get('name') == 'test-weu-vnet'
-			elementProperties.get('address_space') == '10.1.0.0/16'
+			elementProperties.get('address_space') == ['10.1.0.0/16']
 	}
 
 	def "should render with cidr"() {
@@ -20,7 +20,7 @@ class NetworkSpec extends ResourceGroupAwareSpec {
 			network.cidr('192.168.2.0/24')
 			Map elementProperties = network.elementProperties()
 		then:
-			elementProperties.get('address_space') == '192.168.2.0/24'
+			elementProperties.get('address_space') == ['192.168.2.0/24']
 	}
 
 	def "should render with network id"() {
@@ -30,7 +30,7 @@ class NetworkSpec extends ResourceGroupAwareSpec {
 			network.networkId(12)
 			Map elementProperties = network.elementProperties()
 		then:
-			elementProperties.get('address_space') == '10.12.0.0/16'
+			elementProperties.get('address_space') == ['10.12.0.0/16']
 	}
 
 }

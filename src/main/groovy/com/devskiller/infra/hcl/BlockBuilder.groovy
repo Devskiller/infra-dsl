@@ -48,6 +48,12 @@ class BlockBuilder {
 	}
 
 	BlockBuilder addProperty(String left, Object right) {
-		addLine("${left.padRight(33 - indents * 2)} = \"$right\"")
+		String value
+		if (right instanceof List) {
+			value = '[' + right.collect { "\"$it\"" }.join(', ') + ']'
+		} else {
+			value = "\"$right\""
+		}
+		addLine("${left.padRight(33 - indents * 2)} = $value")
 	}
 }

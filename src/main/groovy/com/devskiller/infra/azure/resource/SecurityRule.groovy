@@ -56,6 +56,10 @@ class SecurityRule {
 		this.priority = priority
 	}
 
+	boolean hasPriority() {
+		return priority > 0
+	}
+
 	Map getAsMap() {
 		[
 				'name'                      : name,

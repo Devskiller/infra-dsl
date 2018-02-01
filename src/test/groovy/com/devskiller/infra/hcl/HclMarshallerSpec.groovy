@@ -20,7 +20,7 @@ class HclMarshallerSpec extends Specification {
 					'hidden_network'     : false,
 					'subnet'             : [
 							'name'          : 'subnet1',
-							'address_prefix': '10.0.1.0/24'
+							'address_prefix': ['10.0.1.0/24']
 					]
 			])
 		then:
@@ -30,7 +30,7 @@ class HclMarshallerSpec extends Specification {
 					'  hidden_network                  = "false"\n\n' +
 					'  subnet {\n' +
 					'    name                          = "subnet1"\n' +
-					'    address_prefix                = "10.0.1.0/24"\n' +
+					'    address_prefix                = ["10.0.1.0/24"]\n' +
 					'  }\n}\n'
 	}
 

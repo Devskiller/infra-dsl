@@ -23,7 +23,9 @@ class NetworkSecurityGroup extends InfrastructureElement {
 		int priority = 200
 		entries.each {
 			rule ->
-				rule.priority(priority++)
+				if (!rule.hasPriority()) {
+					rule.priority(priority++)
+				}
 				rules.add(rule.getAsMap())
 		}
 		return  ['security_rule': rules]
