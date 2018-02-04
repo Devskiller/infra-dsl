@@ -18,7 +18,7 @@ class LoadBalancer extends InfrastructureElement {
 	private FrontendIpConfiguration frontendIpConfiguration = new FrontendIpConfiguration()
 
 	LoadBalancer(ResourceGroup resourceGroup, String name, PublicIp publicIp) {
-		super(resourceGroup, 'azure_lb', name)
+		super(resourceGroup, 'azurerm_lb', name)
 		this.backendPool = new BackendPool(resourceGroup, name)
 		this.name = name
 		this.frontendIpConfiguration.publicIp = publicIp
@@ -93,6 +93,11 @@ class LoadBalancer extends InfrastructureElement {
 
 		protected BackendPool(ResourceGroup resourceGroup, String name) {
 			super(resourceGroup, 'azurerm_lb_backend_address_pool', name)
+		}
+
+		@Override
+		Map elementProperties() {
+			return super.elementProperties(false, false)
 		}
 
 		@Override

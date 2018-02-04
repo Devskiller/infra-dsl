@@ -18,7 +18,7 @@ class SecurityRuleSpec extends Specification {
 			properties.get('destination_port_range') == '*'
 			properties.get('source_address_prefix') == '*'
 			properties.get('destination_address_prefix') == '*'
-			properties.get('destination') == SecurityRule.Destination.Inbound
+			properties.get('direction') == SecurityRule.Direction.Inbound
 	}
 
 	def "should render customized"() {
@@ -29,7 +29,7 @@ class SecurityRuleSpec extends Specification {
 			rule.protocol(SecurityRule.RuleProtocol.Tcp)
 			rule.sourcePort(22)
 			rule.sourceAddress('10.2.1.0/24')
-			rule.destination(SecurityRule.Destination.Outbound)
+			rule.destination(SecurityRule.Direction.Outbound)
 		when:
 			Map properties = rule.getAsMap()
 		then:
@@ -40,6 +40,6 @@ class SecurityRuleSpec extends Specification {
 			properties.get('destination_port_range') == '*'
 			properties.get('source_address_prefix') == '10.2.1.0/24'
 			properties.get('destination_address_prefix') == '*'
-			properties.get('destination') == SecurityRule.Destination.Outbound
+			properties.get('direction') == SecurityRule.Direction.Outbound
 	}
 }

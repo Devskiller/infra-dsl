@@ -77,7 +77,7 @@ void defaultSecurityRules(NetworkSecurityGroup networkSecurityGroup) {
 		securityRule {
 			name 'rule2'
 			destinationPort 22
-			protocol RuleProtocol.Both
+			protocol RuleProtocol.Any
 		}
 	}
 

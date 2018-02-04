@@ -27,7 +27,7 @@ class LoadBalancerSpec extends ResourceGroupAwareSpec {
 			Map properties = probe.elementProperties()
 		then:
 			properties.get('name') == 'test-weu-probe-front-www'
-			properties.get('loadbalancer_id') == '${azure_lb.test-weu-lb-front.id}'
+			properties.get('loadbalancer_id') == '${azurerm_lb.test-weu-lb-front.id}'
 			properties.get('port') == 443
 			properties.get('protocol') == LoadBalancer.ProbeProtocol.Http
 	}
@@ -48,7 +48,7 @@ class LoadBalancerSpec extends ResourceGroupAwareSpec {
 			Map properties = rule.elementProperties()
 		then:
 			properties.get('name') == 'test-weu-lbr-front-http'
-			properties.get('loadbalancer_id') == '${azure_lb.test-weu-lb-front.id}'
+			properties.get('loadbalancer_id') == '${azurerm_lb.test-weu-lb-front.id}'
 			properties.get('frontend_ip_configuration_name') == 'test-weu-fipc-front'
 			properties.get('probe_id') == 'test-weu-probe-front-www'
 			properties.get('protocol') == LoadBalancer.TransportProtocol.Tcp
@@ -80,7 +80,7 @@ class LoadBalancerSpec extends ResourceGroupAwareSpec {
 			Map properties = natRule.elementProperties()
 		then:
 			properties.get('name') == 'test-weu-lbnr-front-http'
-			properties.get('loadbalancer_id') == '${azure_lb.test-weu-lb-front.id}'
+			properties.get('loadbalancer_id') == '${azurerm_lb.test-weu-lb-front.id}'
 			properties.get('frontend_ip_configuration_name') == 'test-weu-fipc-front'
 			properties.get('protocol') == LoadBalancer.TransportProtocol.Tcp
 			properties.get('frontend_port_start') == 5001
@@ -114,7 +114,7 @@ class LoadBalancerSpec extends ResourceGroupAwareSpec {
 		when:
 			String rendered = loadBalancer.renderElement()
 		then:
-			rendered.contains('azure_lb')
+			rendered.contains('azurerm_lb')
 			rendered.contains('frontend_ip_configuration')
 			rendered.contains('azurerm_lb_backend_address_pool')
 		and:
