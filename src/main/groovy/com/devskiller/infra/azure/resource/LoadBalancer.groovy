@@ -145,6 +145,11 @@ class LoadBalancer extends InfrastructureElement {
 		}
 
 		@Override
+		Map elementProperties() {
+			return super.elementProperties(false, false)
+		}
+
+		@Override
 		protected Map getAsMap() {
 			[
 					'loadbalancer_id'    : LoadBalancer.this.dataSourceElementId(),
@@ -181,6 +186,11 @@ class LoadBalancer extends InfrastructureElement {
 
 		void enableFloatingIp(Boolean enableFloatingIp) {
 			this.enableFloatingIp = enableFloatingIp
+		}
+
+		@Override
+		Map elementProperties() {
+			return super.elementProperties(false, false)
 		}
 
 		@Override

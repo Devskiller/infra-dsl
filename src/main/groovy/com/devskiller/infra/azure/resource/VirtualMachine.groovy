@@ -39,14 +39,15 @@ class VirtualMachine extends InfrastructureElement {
 	protected void setElementName(String elementName) {
 		super.setElementName(elementName)
 		networkInterface.setElementName(elementName)
-		disk.setElementName('os-' + elementName) //fixme
+		disk.setElementName(elementName + '-os') //fixme
 	}
 
 	@Override
 	protected Map getAsMap() {
 		Map map = [
-				'network_interface_ids': [networkInterface.dataSourceElementId()],
-				'size'                 : size
+				'network_interface_ids'       : [networkInterface.dataSourceElementId()],
+				'primary_network_interface_id': networkInterface.dataSourceElementId(),
+				'vm_size'                     : size
 		]
 
 
@@ -109,18 +110,24 @@ class VirtualMachine extends InfrastructureElement {
 
 		private String adminUsername
 		private String adminPassword
-		private boolean disablePasswordAuthentication = false
+		private String sshKey
+		private boolean disablePasswordAuthentication = true
 
 		void adminUsername(String adminUsername) {
 			this.adminUsername = adminUsername
 		}
 
 		void adminPassword(String adminPassword) {
+			disablePasswordAuthentication = false
 			this.adminPassword = adminPassword
 		}
 
 		void disablePasswordAuthentication(boolean disablePasswordAuthentication) {
 			this.disablePasswordAuthentication = disablePasswordAuthentication
+		}
+
+		void sshKey(String sshKey) {
+			this.sshKey = sshKey
 		}
 
 		Map getAsMap() {
@@ -132,9 +139,16 @@ class VirtualMachine extends InfrastructureElement {
 					           ]
 			]
 			if (VirtualMachine.this.family == Family.Linux) {
-				map << ['os_profile_linux_config':
-						        ['disable_password_authentication': disablePasswordAuthentication]
+				Map linuxProfileConfig = [
+						'disable_password_authentication': disablePasswordAuthentication
 				]
+				if (sshKey) {
+					linuxProfileConfig << ['ssh_keys': [
+							'path'    : "/home/$adminUsername/.ssh/authorized_keys",
+							'key_data': sshKey
+					]]
+				}
+				map << ['os_profile_linux_config': linuxProfileConfig]
 			} else {
 				map << ['os_profile_windows_config': [:]]
 			}
