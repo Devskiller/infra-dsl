@@ -82,6 +82,7 @@ class VirtualMachine extends InfrastructureElement {
 		private String publisher
 		private String offer
 		private String sku
+		private String version = "latest"
 
 		void publisher(String publisher) {
 			this.publisher = publisher
@@ -95,12 +96,17 @@ class VirtualMachine extends InfrastructureElement {
 			this.sku = sku
 		}
 
+		void version(String version) {
+			this.version = version
+		}
+
 		Map getAsMap() {
 			['storage_image_reference':
 					 [
 							 'publisher': publisher,
 							 'offer'    : offer,
-							 'sku'      : sku
+							 'sku'      : sku,
+							 'version'  : version
 					 ]
 			]
 		}

@@ -6,4 +6,6 @@ interface Convention {
 
 	String getDomainName(String prefix, ResourceGroup resourceGroup, String... resourceNames)
 
+	String regionId(ResourceGroup resourceGroup)
+
 }

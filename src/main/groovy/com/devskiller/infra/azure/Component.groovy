@@ -4,10 +4,11 @@ import com.devskiller.infra.azure.internal.DslContext
 import com.devskiller.infra.azure.internal.InfrastructureElement
 import com.devskiller.infra.azure.internal.InfrastructureElementCollection
 import com.devskiller.infra.azure.resource.AvailabilitySet
+import com.devskiller.infra.azure.resource.CosmosDB
 import com.devskiller.infra.azure.resource.LoadBalancer
+import com.devskiller.infra.azure.resource.MachineSet
 import com.devskiller.infra.azure.resource.NetworkSecurityGroup
 import com.devskiller.infra.azure.resource.PublicIp
-import com.devskiller.infra.azure.resource.MachineSet
 
 class Component extends InfrastructureElementCollection {
 
@@ -36,6 +37,10 @@ class Component extends InfrastructureElementCollection {
 				new LoadBalancer(resourceGroup, name,
 						findDependantElement(PublicIp)),
 				closure)
+	}
+
+	void cosmosDB(@DelegatesTo(CosmosDB) Closure closure) {
+		entries << DslContext.create(new CosmosDB(resourceGroup, name), closure)
 	}
 
 	void virtualMachines(@DelegatesTo(MachineSet) Closure closure) {

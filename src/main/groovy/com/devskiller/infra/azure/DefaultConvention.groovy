@@ -1,8 +1,10 @@
 package com.devskiller.infra.azure
 
 import com.devskiller.infra.azure.resource.AvailabilitySet
+import com.devskiller.infra.azure.resource.CosmosDB
 import com.devskiller.infra.azure.resource.DnsZone
 import com.devskiller.infra.azure.resource.LoadBalancer
+import com.devskiller.infra.azure.resource.NetworkPeering
 import com.devskiller.infra.azure.resource.VirtualMachine
 import com.devskiller.infra.azure.resource.Network
 import com.devskiller.infra.azure.resource.NetworkInterface
@@ -28,6 +30,11 @@ class DefaultConvention implements Convention {
 		return concatenateElements([prefix, resourceGroup.name, resourceNames])
 	}
 
+	@Override
+	String regionId(ResourceGroup resourceGroup) {
+		resourceGroup.region.substring(0, 2) + resourceGroup.region.substring(5, 6)
+	}
+
 	private String resourceId(Class resourceType) {
 		switch (resourceType) {
 			case ResourceGroup: return 'rg'
@@ -45,12 +52,14 @@ class DefaultConvention implements Convention {
 			case NetworkInterface: return 'ni'
 			case NetworkInterface.IpConfiguration: return 'nipc'
 			case VirtualMachine.Disk: return 'disk'
-			default: throw new IllegalStateException()
+			case CosmosDB: return 'cdb'
+			case NetworkPeering: return 'peer'
+			default: throw new IllegalStateException('No convention for resource ' + resourceType)
 		}
 	}
 
 	private String prefix(ResourceGroup resourceGroup) {
-		return resourceGroup.name + '-' + resourceGroup.region.substring(0, 2) + resourceGroup.region.substring(5, 6)
+		return resourceGroup.name + '-' + regionId(resourceGroup)
 	}
 
 	private String concatenateElements(List<Serializable> nameElements) {

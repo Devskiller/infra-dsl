@@ -12,7 +12,7 @@ abstract class InfrastructureElement {
 
 	private final String componentName
 
-	private String elementName
+	protected String elementName
 
 	protected InfrastructureElement(ResourceGroup resourceGroup, String resourceType, String componentName = null) {
 		this.resourceGroup = resourceGroup
@@ -32,7 +32,13 @@ abstract class InfrastructureElement {
 				elementProperties())
 	}
 
-	Map elementProperties(boolean includeLocation = true, boolean  includeTags = true) {
+	String renderDataElement() {
+		HclMarshaller.data(resourceType,
+				elementName(),
+				commonProperties())
+	}
+
+	Map elementProperties(boolean includeLocation = true, boolean includeTags = true) {
 		Map<String, String> properties = commonProperties()
 		if (includeLocation) {
 			properties << location()
@@ -57,8 +63,9 @@ abstract class InfrastructureElement {
 		]
 	}
 
-	String dataSourceElementId() {
-		return "\${$resourceType.${HclUtil.escapeResourceName(elementName())}.id}"
+	String dataSourceElementId(boolean external = false) {
+		String prefix = external ? 'data.' : ''
+		return "\${$prefix$resourceType.${HclUtil.escapeResourceName(elementName())}.id}"
 	}
 
 	protected String elementName() {

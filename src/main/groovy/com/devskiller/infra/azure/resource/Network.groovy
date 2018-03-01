@@ -3,12 +3,14 @@ package com.devskiller.infra.azure.resource
 import com.devskiller.infra.azure.internal.DslContext
 import com.devskiller.infra.azure.internal.InfrastructureElement
 import com.devskiller.infra.azure.ResourceGroup
+import com.devskiller.infra.azure.internal.InfrastructureElementCollection
 
 class Network extends InfrastructureElement {
 
 	int networkId = 1
 	String cidr
 	SubnetList subnetList
+	PeeringList peeringList
 
 	Network(ResourceGroup resourceGroup) {
 		super(resourceGroup, 'azurerm_virtual_network')
@@ -26,6 +28,10 @@ class Network extends InfrastructureElement {
 		subnetList = DslContext.create(new SubnetList(resourceGroup, getNetworkCidr()), closure)
 	}
 
+	void peerings(@DelegatesTo(PeeringList) Closure closure) {
+		peeringList = DslContext.create(new PeeringList(resourceGroup), closure)
+	}
+
 	String getNetworkCidr() {
 		return cidr ?: String.format("10.%d.0.0/16", networkId)
 	}
@@ -39,7 +45,35 @@ class Network extends InfrastructureElement {
 
 	@Override
 	String renderElement() {
-		super.renderElement() + subnetList?.renderElement()
+		super.renderElement() + subnetList?.renderElement() + peeringList?.renderElement()
+	}
+
+	class SubnetList extends InfrastructureElementCollection {
+
+		final List<Subnet> entries = []
+		private final String networkCidr
+
+		protected SubnetList(ResourceGroup resourceGroup, String networkCidr) {
+			super(resourceGroup)
+			this.networkCidr = networkCidr
+		}
+
+		void subnet(String name, @DelegatesTo(Subnet) Closure closure) {
+			Subnet subnet = new Subnet(resourceGroup, name, networkCidr)
+			entries << DslContext.create(subnet, closure)
+		}
+	}
+
+	class PeeringList extends InfrastructureElementCollection {
+		final List<NetworkPeering> entries = []
+
+		protected PeeringList(ResourceGroup resourceGroup) {
+			super(resourceGroup)
+		}
+
+		void peering(@DelegatesTo(NetworkPeering) Closure closure) {
+			entries << DslContext.create(new NetworkPeering(resourceGroup, Network.this), closure)
+		}
 	}
 
 }

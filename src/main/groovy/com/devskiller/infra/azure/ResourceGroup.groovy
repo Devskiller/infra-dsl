@@ -45,4 +45,8 @@ class ResourceGroup {
 		return convention.getDomainName(prefix, this, names)
 	}
 
+	String getRegionId() {
+		return convention.regionId(this)
+	}
+
 }
