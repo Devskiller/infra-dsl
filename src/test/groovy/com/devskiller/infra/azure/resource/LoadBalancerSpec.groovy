@@ -50,7 +50,7 @@ class LoadBalancerSpec extends ResourceGroupAwareSpec {
 			properties.get('name') == 'test-weu-lbr-front-http'
 			properties.get('loadbalancer_id') == '${azurerm_lb.test-weu-lb-front.id}'
 			properties.get('frontend_ip_configuration_name') == 'test-weu-fipc-front'
-			properties.get('probe_id') == 'test-weu-probe-front-www'
+			properties.get('probe_id') == '${azurerm_lb_probe.test-weu-probe-front-www.id}'
 			properties.get('protocol') == LoadBalancer.TransportProtocol.Tcp
 			properties.get('load_distribution') == LoadBalancer.LoadDistribution.SourceIP
 			properties.get('enable_floating_ip')

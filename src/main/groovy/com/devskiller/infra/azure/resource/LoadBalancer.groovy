@@ -234,11 +234,12 @@ class LoadBalancer extends InfrastructureElement {
 					'load_distribution': loadDistribution
 			]
 			if (probeName) {
-				map << ['probe_id': LoadBalancer.this.resourceGroup.getResourceQualifier(Probe, [name, probeName])]
+				map << ['probe_id': LoadBalancer.this.probes.find { it.elementName == probeName }.dataSourceElementId()]
 			}
 			return map
 		}
-	}
+
+		}
 
 	class NatRule extends AbstractRule {
 
