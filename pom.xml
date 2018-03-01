@@ -158,6 +158,9 @@
                                 </configuration>
                             </execution>
                         </executions>
+                        <configuration>
+                            <pushChanges>false</pushChanges>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
