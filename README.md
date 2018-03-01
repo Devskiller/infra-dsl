@@ -4,6 +4,10 @@ Clean and easy way to define infrastructure in code.
 
 ## More description soon. Enjoy the sample below :) 
 
+```bash
+java -jar infra-dsl-VERSION.jar path_to_your_file.groovy
+```
+
 ```groovy
 Infrastructure.resourceGroup('ci') {
 
