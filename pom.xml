@@ -6,7 +6,7 @@
 
     <groupId>com.devskiller.infra</groupId>
     <artifactId>infra-dsl</artifactId>
-    <version>0.9.0-SNAPSHOT</version>
+    <version>1-1-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -66,8 +66,102 @@
                     </includes>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
+
+    <scm>
+        <connection>scm:git:https://github.com/Devskiller/infra-dsl.git</connection>
+        <developerConnection>scm:git:git@github.com:Devskiller/infra-dsl.git</developerConnection>
+        <url>https://github.com/Devskiller/infra-dsl</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <properties>
+                <newVersionString>${parsedVersion.majorVersion}-${parsedVersion.buildNumber}</newVersionString>
+                <newVersionFormattedString>${parsedVersion.majorVersion}-${formattedVersion.buildNumber}</newVersionFormattedString>
+            </properties>
+            <build>
+                <finalName>infra-dsl-${newVersionFormattedString}</finalName>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>3.0.0</version>
+                        <executions>
+                            <execution>
+                                <id>parse-version</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>parse-version</goal>
+                                </goals>
+                                <configuration>
+                                    <formatBuildNumber>b%d</formatBuildNumber>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>versions-maven-plugin</artifactId>
+                        <version>2.5</version>
+                        <executions>
+                            <execution>
+                                <id>set-release-version</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>set</goal>
+                                </goals>
+                                <configuration>
+                                    <newVersion>
+                                        ${newVersionString}-SNAPSHOT
+                                    </newVersion>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-scm-plugin</artifactId>
+                        <version>1.9.5</version>
+                        <inherited>false</inherited>
+                        <executions>
+                            <execution>
+                                <id>tag-new-release</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>tag</goal>
+                                </goals>
+                                <configuration>
+                                    <tag>v${newVersionFormattedString}</tag>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>save-changes</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>checkin</goal>
+                                </goals>
+                                <configuration>
+                                    <connectionType>connection</connectionType>
+                                    <includes>pom.xml</includes>
+                                    <message>Set version to v${newVersionString}</message>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
