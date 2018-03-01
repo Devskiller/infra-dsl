@@ -18,8 +18,8 @@ class Runner {
 	}
 
 	static void main(String[] args) {
-		URL resource = Runner.class.getResource("/azure-sample.groovy")
-		Infrastructure infrastructure = evaluate(new String(Files.readAllBytes(Paths.get(resource.toURI()))))
+		String dslFilePath = args[0]
+		Infrastructure infrastructure = evaluate(new String(Files.readAllBytes(Paths.get(dslFilePath))))
 
 		String render = new TerraformRendered(infrastructure).render()
 		println render
