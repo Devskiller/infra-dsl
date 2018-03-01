@@ -6,7 +6,7 @@
 
     <groupId>com.devskiller.infra</groupId>
     <artifactId>infra-dsl</artifactId>
-    <version>1-1-SNAPSHOT</version>
+    <version>1-0</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -88,11 +88,11 @@
         <profile>
             <id>release</id>
             <properties>
-                <newVersionString>${parsedVersion.majorVersion}-${parsedVersion.newBuildNumber}</newVersionString>
-                <releaseVersionString>${parsedVersion.majorVersion}-${formattedVersion.buildNumber}</releaseVersionString>
+                <releaseVersionString>${parsedVersion.majorVersion}-${parsedVersion.nextBuildNumber}</releaseVersionString>
+                <releaseVersionFormattedString>${parsedVersion.majorVersion}-${formattedVersion.nextBuildNumber}</releaseVersionFormattedString>
             </properties>
             <build>
-                <finalName>infra-dsl-${releaseVersionString}</finalName>
+                <finalName>infra-dsl-${releaseVersionFormattedString}</finalName>
                 <plugins>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
@@ -124,7 +124,7 @@
                                 </goals>
                                 <configuration>
                                     <newVersion>
-                                        ${newVersionString}-SNAPSHOT
+                                        ${releaseVersionString}
                                     </newVersion>
                                 </configuration>
                             </execution>
@@ -137,16 +137,6 @@
                         <inherited>false</inherited>
                         <executions>
                             <execution>
-                                <id>tag-new-release</id>
-                                <phase>deploy</phase>
-                                <goals>
-                                    <goal>tag</goal>
-                                </goals>
-                                <configuration>
-                                    <tag>v${releaseVersionString}</tag>
-                                </configuration>
-                            </execution>
-                            <execution>
                                 <id>save-changes</id>
                                 <phase>deploy</phase>
                                 <goals>
@@ -155,7 +145,17 @@
                                 <configuration>
                                     <connectionType>connection</connectionType>
                                     <includes>pom.xml</includes>
-                                    <message>Set version to v${newVersionString}</message>
+                                    <message>Set version to v${releaseVersionString}</message>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>tag-new-release</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>tag</goal>
+                                </goals>
+                                <configuration>
+                                    <tag>v${releaseVersionFormattedString}</tag>
                                 </configuration>
                             </execution>
                         </executions>

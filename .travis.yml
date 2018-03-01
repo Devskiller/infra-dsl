@@ -4,6 +4,7 @@ jdk:
 before_install:
 - git config --global user.email "builds@travis-ci.com"
 - git config --global user.name "Travis CI"
+- git checkout master
 install: true
 script:
 - ./mvnw clean deploy $( [[ $TRAVIS_COMMIT_MESSAGE =~ .*doRelease.* ]] && echo "-Prelease" )
