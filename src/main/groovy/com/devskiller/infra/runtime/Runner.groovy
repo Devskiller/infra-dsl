@@ -18,6 +18,10 @@ class Runner {
 	}
 
 	static void main(String[] args) {
+		if (args.length == 0) {
+			println "Please provide a DSL filename as a parameter"
+			System.exit(1)
+		}
 		String dslFilePath = args[0]
 		Infrastructure infrastructure = evaluate(new String(Files.readAllBytes(Paths.get(dslFilePath))))
 
