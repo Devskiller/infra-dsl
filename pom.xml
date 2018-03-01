@@ -69,6 +69,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.2</version>
                 <configuration>
                     <skip>true</skip>
                 </configuration>
@@ -87,11 +88,11 @@
         <profile>
             <id>release</id>
             <properties>
-                <newVersionString>${parsedVersion.majorVersion}-${parsedVersion.buildNumber}</newVersionString>
-                <newVersionFormattedString>${parsedVersion.majorVersion}-${formattedVersion.buildNumber}</newVersionFormattedString>
+                <newVersionString>${parsedVersion.majorVersion}-${parsedVersion.newBuildNumber}</newVersionString>
+                <releaseVersionString>${parsedVersion.majorVersion}-${formattedVersion.buildNumber}</releaseVersionString>
             </properties>
             <build>
-                <finalName>infra-dsl-${newVersionFormattedString}</finalName>
+                <finalName>infra-dsl-${releaseVersionString}</finalName>
                 <plugins>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
@@ -142,7 +143,7 @@
                                     <goal>tag</goal>
                                 </goals>
                                 <configuration>
-                                    <tag>v${newVersionFormattedString}</tag>
+                                    <tag>v${releaseVersionString}</tag>
                                 </configuration>
                             </execution>
                             <execution>
