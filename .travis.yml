@@ -12,6 +12,7 @@ deploy:
     secure: Yb4fWo/nQQMp0JJiP8BwR8tUaBqccVJah7er4bgF194ZXmG6T+aBXjNasw3vJQBXmbqP0uZlv8mTSoM1JQTCgvhurWEfVBiRJHA1sZeXB1FaP+uwjNOyV8yRVGq+qqvqrbEXrIxvOBRV85nUGdem9zxqXBpkG9MZrvTSY2k96+S6go9q17iVNIoHTm/z2y2Xe1uvI1Ej4y0DRxHx5DJJntR+03lgBFLvXZ0jH9y9ZkN08n9+GxdigM0VawmtRTZjUGHNnJ6Cq2A0ZVmnSRwAHVvZjGjMadnaKt9cl2u4NWRUqVByvgqsfKw9mLMt4HcpSkpVfqEuWVZA3cAVOd1vn99PEr8TVY2z/7MCK8rdK+G9Z+hSVtnohIMKh4KFqX0S8q8zMK0dgaaeNYuP255IWgao+CCSqWdhGErNIdcp46XIcDinSF5TpjLsPQGFCLkyzx3e0FtgFhfG4911v+JRvN9DzujuH594bEQo938zwxZK9Vboi375zfoTYPWkYryq6AQahWYdmduJTHzBPInxR3iq4Haaitxhqe7nmQo2d4/VrT6sVzIdVR2MnPauabiJhNYaeMI+rCKDolyRqfYWs2ldfwxXXk70MAWf+N8fyJY+opJg11DUgNdC0RdAdXdeB6lIOGWX+m34XjWFFxqU1POZ2PvRpqbZKhob9AJHtEI=
   file_glob: true
   file: target/infra-dsl*.jar
+  skip_cleanup: true
   on:
     repo: Devskiller/infra-dsl
     condition: "$TRAVIS_COMMIT_MESSAGE =~ .*doRelease.*"
