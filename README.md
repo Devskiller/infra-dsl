@@ -4,7 +4,6 @@ Clean and easy way to define infrastructure in code.
 
 ## More description soon. Enjoy the sample below :) 
 
-
 ```groovy
 Infrastructure.resourceGroup('ci') {
 
