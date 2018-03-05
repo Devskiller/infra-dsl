@@ -231,7 +231,8 @@ class LoadBalancer extends InfrastructureElement {
 		protected Map getAsMap() {
 			Map map = super.getAsMap() + [
 					'frontend_port'    : frontendPort,
-					'load_distribution': loadDistribution
+					'load_distribution': loadDistribution,
+					'backend_address_pool_id' : LoadBalancer.this.getBackendPool().dataSourceElementId()
 			]
 			if (probeName) {
 				map << ['probe_id': LoadBalancer.this.probes.find { it.elementName == probeName }.dataSourceElementId()]

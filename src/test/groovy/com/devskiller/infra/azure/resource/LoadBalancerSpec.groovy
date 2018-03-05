@@ -53,6 +53,7 @@ class LoadBalancerSpec extends ResourceGroupAwareSpec {
 			properties.get('probe_id') == '${azurerm_lb_probe.test-weu-probe-front-www.id}'
 			properties.get('protocol') == LoadBalancer.TransportProtocol.Tcp
 			properties.get('load_distribution') == LoadBalancer.LoadDistribution.SourceIP
+			properties.get('backend_address_pool_id') == '${azurerm_lb_backend_address_pool.test-weu-bap-front.id}'
 			properties.get('enable_floating_ip')
 	}
 
