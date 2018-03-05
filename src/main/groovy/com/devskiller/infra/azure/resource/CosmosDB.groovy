@@ -8,6 +8,7 @@ class CosmosDB extends InfrastructureElement {
 	private String offerType = 'Standard'
 	private String consistencyLevel
 	private String failoverLocation
+	private CosmosDBKind kind = CosmosDBKind.GlobalDocumentDB
 
 	CosmosDB(ResourceGroup resourceGroup, String componentName) {
 		super(resourceGroup, 'azurerm_cosmosdb_account', componentName)
@@ -21,10 +22,15 @@ class CosmosDB extends InfrastructureElement {
 		this.failoverLocation = failoverLocation
 	}
 
+	void kind(CosmosDBKind kind) {
+		this.kind = kind
+	}
+
 	@Override
 	protected Map getAsMap() {
 		[
 				'offer_type': offerType,
+				'kind' : kind.name(),
 				'consistency_policy' : [
 				        'consistency_level' : consistencyLevel
 				],
@@ -33,5 +39,9 @@ class CosmosDB extends InfrastructureElement {
 				        'priority' : 0
 				]
 		]
+	}
+
+	enum CosmosDBKind {
+		GlobalDocumentDB, MongoDB
 	}
 }
