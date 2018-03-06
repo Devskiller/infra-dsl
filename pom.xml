@@ -6,7 +6,7 @@
 
     <groupId>com.devskiller.infra</groupId>
     <artifactId>infra-dsl</artifactId>
-    <version>1-0</version>
+    <version>0.9.0-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -108,14 +108,104 @@
     </scm>
 
     <profiles>
+
+        <!-- Release to github -->
         <profile>
             <id>release</id>
-            <properties>
-                <releaseVersionString>${parsedVersion.majorVersion}-${parsedVersion.nextBuildNumber}</releaseVersionString>
-                <releaseVersionFormattedString>${parsedVersion.majorVersion}-${formattedVersion.nextBuildNumber}</releaseVersionFormattedString>
-            </properties>
             <build>
-                <finalName>infra-dsl-${releaseVersionFormattedString}</finalName>
+                <plugins>
+
+                    <plugin>
+                        <groupId>de.jutzig</groupId>
+                        <artifactId>github-release-plugin</artifactId>
+                        <version>1.2.0</version>
+                        <executions>
+                            <execution>
+                                <id>release-artifacts</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>release</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <releaseName>${project.version}</releaseName>
+                            <tag>${project.version}</tag>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>3.0.0</version>
+                        <executions>
+                            <execution>
+                                <id>parse-version</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>parse-version</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>versions-maven-plugin</artifactId>
+                        <version>2.5</version>
+                        <executions>
+                            <execution>
+                                <id>switch-to-snapshot-version</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>set</goal>
+                                </goals>
+                                <configuration>
+                                    <allowSnapshots/>
+                                    <newVersion>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.nextIncrementalVersion}-SNAPSHOT</newVersion>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-scm-plugin</artifactId>
+                        <version>1.9.5</version>
+                        <inherited>false</inherited>
+                        <executions>
+                            <execution>
+                                <id>tag-new-release</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>tag</goal>
+                                </goals>
+                                <configuration>
+                                    <tag>v${project.version}</tag>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>save-changes</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>checkin</goal>
+                                </goals>
+                                <configuration>
+                                    <connectionType>connection</connectionType>
+                                    <includes>pom.xml</includes>
+                                    <message>Setting next development version to ${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.nextIncrementalVersion}-SNAPSHOT.
+
+                                        [ci skip]</message>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Set version for release-->
+        <profile>
+            <id>version</id>
+            <build>
                 <plugins>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
@@ -128,9 +218,6 @@
                                 <goals>
                                     <goal>parse-version</goal>
                                 </goals>
-                                <configuration>
-                                    <formatBuildNumber>b%d</formatBuildNumber>
-                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
@@ -146,45 +233,10 @@
                                     <goal>set</goal>
                                 </goals>
                                 <configuration>
-                                    <newVersion>
-                                        ${releaseVersionString}
-                                    </newVersion>
+                                    <newVersion>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}</newVersion>
                                 </configuration>
                             </execution>
                         </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-scm-plugin</artifactId>
-                        <version>1.9.5</version>
-                        <inherited>false</inherited>
-                        <executions>
-                            <execution>
-                                <id>save-changes</id>
-                                <phase>deploy</phase>
-                                <goals>
-                                    <goal>checkin</goal>
-                                </goals>
-                                <configuration>
-                                    <connectionType>connection</connectionType>
-                                    <includes>pom.xml</includes>
-                                    <message>Set version to v${releaseVersionString}</message>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>tag-new-release</id>
-                                <phase>deploy</phase>
-                                <goals>
-                                    <goal>tag</goal>
-                                </goals>
-                                <configuration>
-                                    <tag>v${releaseVersionFormattedString}</tag>
-                                </configuration>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <pushChanges>false</pushChanges>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>
