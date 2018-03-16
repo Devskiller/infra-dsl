@@ -43,9 +43,13 @@ class Component extends InfrastructureElementCollection {
 		entries << DslContext.create(new CosmosDB(resourceGroup, name), closure)
 	}
 
-	void virtualMachines(@DelegatesTo(MachineSet) Closure closure) {
+	void virtualMachine(int index, @DelegatesTo(MachineSet) Closure closure) {
+		virtualMachine(String.valueOf(index), closure)
+	}
+
+	void virtualMachine(String suffix, @DelegatesTo(MachineSet) Closure closure) {
 		entries << DslContext.create(
-				new MachineSet(resourceGroup, name,
+				new MachineSet(suffix, resourceGroup, name,
 						findDependantElement(NetworkSecurityGroup),
 						findDependantElement(LoadBalancer),
 						findDependantElement(AvailabilitySet)

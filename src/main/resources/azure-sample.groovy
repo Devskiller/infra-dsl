@@ -42,28 +42,28 @@ Infrastructure.resourceGroup('ci') {
 					protocol ProbeProtocol.Tcp
 				}
 			}
-			virtualMachines {
-				count 2
-				networkInterface {
-					subnetName 'vpn'
-					enableAcceleratedNetworking true
-				}
-				instance {
-					size 'Standard_A0'
-					image {
-						publisher 'OpenLogic'
-						offer 'CentOS'
-						sku '7.3'
+			for (i in 1..2) {
+				virtualMachine(i) {
+					networkInterface {
+						subnetName 'vpn'
+						enableAcceleratedNetworking true
 					}
-					osProfile {
-						adminUsername 'root'
-						adminPassword 'password'
+					instance {
+						size 'Standard_A0'
+						image {
+							publisher 'OpenLogic'
+							offer 'CentOS'
+							sku '7.3'
+						}
+						osProfile {
+							adminUsername 'root'
+							adminPassword 'password'
+						}
 					}
 				}
 			}
 		}
 	}
-
 }
 
 void defaultSecurityRules(NetworkSecurityGroup networkSecurityGroup) {
