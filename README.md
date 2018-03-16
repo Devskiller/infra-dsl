@@ -1,6 +1,6 @@
 # InfraDSL
 
-Clean and easy way to define infrastructure in code.
+Groovy DSL for Terraform. Clean and easy way to define infrastructure in code.
 
 ## More description soon. Enjoy the sample below :) 
 

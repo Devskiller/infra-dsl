@@ -1,23 +1,22 @@
 language: java
 jdk:
 - oraclejdk8
-branches:
-  except:
-  - /^v\d+\-b\d+$/
 before_install:
 - git config --global user.email "builds@travis-ci.com"
 - git config --global user.name "Travis CI"
-- git checkout master
-install: true
+- if [[ $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_BRANCH == "master" ]]; then git checkout master; fi
+before_script:
+- if [[ $TRAVIS_COMMIT_MESSAGE =~ .*doRelease.* || $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_BRANCH == "master" ]]; then ./mvnw initialize -Pversion; fi
 script:
-- ./mvnw clean deploy $( [[ $TRAVIS_COMMIT_MESSAGE =~ .*doRelease.* ]] && echo "-Prelease" )
-deploy:
-  provider: releases
-  api_key:
-    secure: Yb4fWo/nQQMp0JJiP8BwR8tUaBqccVJah7er4bgF194ZXmG6T+aBXjNasw3vJQBXmbqP0uZlv8mTSoM1JQTCgvhurWEfVBiRJHA1sZeXB1FaP+uwjNOyV8yRVGq+qqvqrbEXrIxvOBRV85nUGdem9zxqXBpkG9MZrvTSY2k96+S6go9q17iVNIoHTm/z2y2Xe1uvI1Ej4y0DRxHx5DJJntR+03lgBFLvXZ0jH9y9ZkN08n9+GxdigM0VawmtRTZjUGHNnJ6Cq2A0ZVmnSRwAHVvZjGjMadnaKt9cl2u4NWRUqVByvgqsfKw9mLMt4HcpSkpVfqEuWVZA3cAVOd1vn99PEr8TVY2z/7MCK8rdK+G9Z+hSVtnohIMKh4KFqX0S8q8zMK0dgaaeNYuP255IWgao+CCSqWdhGErNIdcp46XIcDinSF5TpjLsPQGFCLkyzx3e0FtgFhfG4911v+JRvN9DzujuH594bEQo938zwxZK9Vboi375zfoTYPWkYryq6AQahWYdmduJTHzBPInxR3iq4Haaitxhqe7nmQo2d4/VrT6sVzIdVR2MnPauabiJhNYaeMI+rCKDolyRqfYWs2ldfwxXXk70MAWf+N8fyJY+opJg11DUgNdC0RdAdXdeB6lIOGWX+m34XjWFFxqU1POZ2PvRpqbZKhob9AJHtEI=
-  file_glob: true
-  file: target/infra-dsl*.jar
-  skip_cleanup: true
-  on:
-    repo: Devskiller/infra-dsl
-    condition: "$TRAVIS_COMMIT_MESSAGE =~ .*doRelease.*"
+- if [[  $TRAVIS_COMMIT_MESSAGE =~ .*doRelease.* || $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_BRANCH == "master" ]]; then ./mvnw deploy --settings .mvn/settings.xml; else ./mvnw install; fi
+branches:
+  except:
+  - /^v\d+\-b\d+$/
+cache:
+  directories:
+  - "~/.m2/repository"
+  - "~/.m2/wrapper"
+install: true
+env:
+  global:
+  - secure: "Nip2BbVsBfqai0/SMK+QolvuzWfcvVp5eGyYU7V9ysE+kbxm/DZm5kcAYh2SbipGRmTT6kdOMeK57Y4h11CpzF3XcR70La1d9v+OVv1JAuBjrgc3iAPxP05FgnzZA/Vp8glI6VT4vtklLLwI9P40PO8b1x48LdOWzPSPAn3CIPy/LR9TfEgRZotDUSGbVFUn6/u4w2I9eHch5Q5/Aj0jnNouZr1wDhhuI7Decp9ZrIW0QBFfu5vfyr6DJPEYgBrraH7rvketm7fRTdq8/RRno4p+owb8NZTRl1DyTRKNsUqbNdBb46SYcq49+oPoHm3GuGey4tbzOfIjaK8l12Nrupvff6T3iBLYSbxinxHxhzQcRltUs1J1Qpanr/x4X21qVxCoK4VPPMpqO2i+hKDyQBIx7YOx02BI0jH3+8YixLJM2HSdv80mxpQox0yyuTKcAZzE7XAqWEEcDE2xp1274U2+XUtdVOPkH66ll8ozIosBYiDkraOEQ1Osowt3eTx4uNQLtReaVZtapg18pdHlnwz/Mv1KkoqmVLsilPDbOW7zvyCic5vZm0N89SKqQHefQ1aAK26rVkMVV7J5nXPl+r35XzrDuPvJk6J4l5syCdZaZAEDg2y5cX0iXzkflJcBur6RLs6w3bXbTxyShzB04Y7ieNE9cZWc09ssQlLr66c="
