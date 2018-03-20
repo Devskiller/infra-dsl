@@ -26,6 +26,7 @@ Infrastructure.resourceGroup('sample') {
 		component('vpn') {
 			availabilitySet {}
 			networkSecurityGroup {
+				defaultsSecurityRules(delegate)
 				securityRule {
 					name 'ssh'
 					destinationPort 22
@@ -38,18 +39,34 @@ Infrastructure.resourceGroup('sample') {
 					}
 					instance {
 						size 'Standard_A0'
-						image {
-							publisher 'OpenLogic'
-							offer 'CentOS'
-							sku '7.3'
-						}
+						centOsImage(delegate)
 						osProfile {
 							adminUsername 'root'
 							adminPassword 'password'
 						}
 					}
 				}
-			}			
+			}
+		}
+	}
+
+}
+
+static void defaultsSecurityRules(NetworkSecurityGroup nsg) {
+	nsg.with {
+		securityRule {
+			name 'www'
+			destinationPort 80
+		}
+	}
+}
+
+static void centOsImage(VirtualMachine virtualMachine) {
+	virtualMachine.with {
+		image {
+			publisher 'OpenLogic'
+			offer 'CentOS'
+			sku '7.3'
 		}
 	}
 }
@@ -109,6 +126,18 @@ resource "azurerm_network_security_group" "sample-weu-nsg-vpn" {
   location                        = "westeurope"
 
   security_rule {
+    name                          = "www"
+    access                        = "Allow"
+    protocol                      = "*"
+    source_port_range             = "*"
+    destination_port_range        = "80"
+    source_address_prefix         = "*"
+    destination_address_prefix    = "*"
+    priority                      = "200"
+    direction                     = "Inbound"
+  }
+
+  security_rule {
     name                          = "ssh"
     access                        = "Allow"
     protocol                      = "*"
@@ -116,7 +145,7 @@ resource "azurerm_network_security_group" "sample-weu-nsg-vpn" {
     destination_port_range        = "22"
     source_address_prefix         = "*"
     destination_address_prefix    = "*"
-    priority                      = "200"
+    priority                      = "201"
     direction                     = "Inbound"
   }
 
