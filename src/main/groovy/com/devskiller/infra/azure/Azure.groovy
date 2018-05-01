@@ -1,10 +1,12 @@
 package com.devskiller.infra.azure
 
+import com.devskiller.infra.Infrastructure
+import com.devskiller.infra.Provider
 import com.devskiller.infra.azure.internal.DslContext
 import com.devskiller.infra.azure.resource.DnsZone
 import com.devskiller.infra.azure.resource.Network
 
-class Infrastructure {
+class Azure extends Infrastructure {
 
 	ResourceGroup resourceGroup = new ResourceGroup()
 
@@ -14,14 +16,14 @@ class Infrastructure {
 
 	Components components
 
-	Infrastructure(String name, String prefix) {
+	Azure(String name, String prefix) {
 		this.resourceGroup.name = name
 		this.resourceGroup.prefix = prefix
 	}
 
-	static Infrastructure resourceGroup(String name, String prefix = null,
-	                                    @DelegatesTo(Infrastructure) Closure closure) {
-		return DslContext.create(new Infrastructure(name, prefix), closure)
+	static Azure resourceGroup(String name, String prefix = null,
+	                           @DelegatesTo(Azure) Closure closure) {
+		return DslContext.create(new Azure(name, prefix), closure)
 	}
 
 	void region(String region) {
@@ -48,6 +50,7 @@ class Infrastructure {
 		components = DslContext.create(new Components(resourceGroup), closure)
 	}
 
+	@Override
 	String render() {
 		String.join('\n',
 				[
@@ -58,4 +61,8 @@ class Infrastructure {
 				].findAll({ it != null }))
 	}
 
+	@Override
+	Provider getProvider() {
+		return new Provider('azurerm')
+	}
 }

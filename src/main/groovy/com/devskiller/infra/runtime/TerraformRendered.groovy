@@ -1,6 +1,6 @@
 package com.devskiller.infra.runtime
 
-import com.devskiller.infra.azure.Infrastructure
+import com.devskiller.infra.Infrastructure
 import com.devskiller.infra.hcl.HclMarshaller
 
 class TerraformRendered {
@@ -12,7 +12,7 @@ class TerraformRendered {
 	}
 
 	String render() {
-		HclMarshaller.provider('azurerm') + '\n' + infrastructure.render()
+		HclMarshaller.provider(infrastructure.getProvider()) + '\n' + infrastructure.render()
 	}
 
 }

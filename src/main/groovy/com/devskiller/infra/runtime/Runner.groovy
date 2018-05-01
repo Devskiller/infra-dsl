@@ -12,7 +12,7 @@ import java.nio.file.attribute.BasicFileAttributes
 import org.codehaus.groovy.control.CompilerConfiguration
 import org.codehaus.groovy.control.customizers.ImportCustomizer
 
-import com.devskiller.infra.azure.Infrastructure
+import com.devskiller.infra.Infrastructure
 
 class Runner {
 
@@ -70,6 +70,7 @@ class Runner {
 		String dslFilePath = args[0]
 		Infrastructure infrastructure = evaluate(new String(Files.readAllBytes(Paths.get(dslFilePath))))
 
+		println '# Generated automatically by InfraDSL from ' + dslFilePath
 		String render = new TerraformRendered(infrastructure).render()
 		println render
 	}

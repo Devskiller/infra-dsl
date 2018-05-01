@@ -1,9 +1,11 @@
 package com.devskiller.infra.hcl
 
+import com.devskiller.infra.Provider
+
 class HclMarshaller {
 
-	static String provider(String provider) {
-		return new BlockBuilder().append("provider \"$provider\" {\n}")
+	static String provider(Provider provider) {
+		return processElement('provider', null, provider.name, provider.properties)
 	}
 
 	static String resource(String type, String name, Map<String, Object> properties) {
@@ -16,8 +18,9 @@ class HclMarshaller {
 
 	private static String processElement(String elementType, String type, String name, Map<String, Object> properties) {
 		BlockBuilder builder = new BlockBuilder()
+		String typeString = type ? "\"$type\" " : ""
 		builder.addEmptyLine()
-				.addLine("$elementType \"$type\" \"${HclUtil.escapeResourceName(name)}\" {")
+				.addLine("$elementType " + typeString + "\"${HclUtil.escapeResourceName(name)}\" {")
 				.startBlock()
 
 		processProperties(builder, properties)
