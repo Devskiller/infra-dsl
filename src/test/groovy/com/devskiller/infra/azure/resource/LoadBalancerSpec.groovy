@@ -74,8 +74,7 @@ class LoadBalancerSpec extends ResourceGroupAwareSpec {
 			LoadBalancer loadBalancer = new LoadBalancer(resourceGroup(), 'front', null)
 			LoadBalancer.NatRule natRule = new LoadBalancer.NatRule(loadBalancer, resourceGroup(), 'front')
 			natRule.name('http')
-			natRule.frontendPortStart 5001
-			natRule.frontendPortEnd 5002
+			natRule.frontendPort 5001
 			natRule.backendPort 5000
 		when:
 			Map properties = natRule.elementProperties()
@@ -84,8 +83,7 @@ class LoadBalancerSpec extends ResourceGroupAwareSpec {
 			properties.get('loadbalancer_id') == '${azurerm_lb.test-weu-lb-front.id}'
 			properties.get('frontend_ip_configuration_name') == 'test-weu-fipc-front'
 			properties.get('protocol') == LoadBalancer.TransportProtocol.Tcp
-			properties.get('frontend_port_start') == 5001
-			properties.get('frontend_port_end') == 5002
+			properties.get('frontend_port') == 5001
 			properties.get('backend_port') == 5000
 	}
 
@@ -108,8 +106,7 @@ class LoadBalancerSpec extends ResourceGroupAwareSpec {
 			}
 			loadBalancer.natRule {
 				name 'www'
-				frontendPortStart 81
-				frontendPortEnd 82
+				frontendPort 81
 				backendPort 443
 			}
 		when:
@@ -126,7 +123,7 @@ class LoadBalancerSpec extends ResourceGroupAwareSpec {
 			rendered.contains('azurerm_lb_rule')
 			rendered.contains('test-weu-lbr-db')
 		and:
-			rendered.contains('azurerm_lb_nat_pool')
+			rendered.contains('azurerm_lb_nat_rule')
 			rendered.contains('test-weu-lbnr-db-www')
 	}
 }

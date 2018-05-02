@@ -24,10 +24,10 @@ class NetworkInterfaceSpec extends ResourceGroupAwareSpec {
 		given:
 			LoadBalancer loadBalancer = new LoadBalancer(resourceGroup(), 'db', null)
 			loadBalancer.natRule {
-				name 'ssh'
+				name 'ssh-2'
 			}
 			loadBalancer.natRule {
-				name 'mysql'
+				name 'mysql-2'
 			}
 			NetworkInterface networkInterface = new NetworkInterface(resourceGroup(), 'db',
 					new NetworkSecurityGroup(resourceGroup(), 'db'),
@@ -49,7 +49,7 @@ class NetworkInterfaceSpec extends ResourceGroupAwareSpec {
 			ipConfiguration.get('subnet_id') == '${azurerm_subnet.test-weu-subnet-app.id}'
 			ipConfiguration.get('private_ip_address_allocation') == 'Static'
 			ipConfiguration.get('load_balancer_backend_address_pools_ids') == ['${azurerm_lb_backend_address_pool.test-weu-bap-db.id}']
-			ipConfiguration.get('load_balancer_inbound_nat_rules_ids') == ['${azurerm_lb_nat_pool.test-weu-lbnr-db-ssh.id}', '${azurerm_lb_nat_pool.test-weu-lbnr-db-mysql.id}']
+			ipConfiguration.get('load_balancer_inbound_nat_rules_ids') == ['${azurerm_lb_nat_rule.test-weu-lbnr-db-ssh-2.id}', '${azurerm_lb_nat_rule.test-weu-lbnr-db-mysql-2.id}']
 
 	}
 
