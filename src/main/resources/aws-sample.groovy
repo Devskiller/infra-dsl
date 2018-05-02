@@ -1,6 +1,6 @@
-import com.devskiller.infra.aws.AWS
+import com.devskiller.infra.Infrastructure
 
-AWS.resourceGroup('sample') {
+Infrastructure.aws('sample') {
 
 	region 'eu-west-1'
 

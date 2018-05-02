@@ -1,9 +1,9 @@
-import com.devskiller.infra.azure.Azure
+import com.devskiller.infra.Infrastructure
 import com.devskiller.infra.azure.resource.LoadBalancer.ProbeProtocol
 import com.devskiller.infra.azure.resource.NetworkSecurityGroup
 import com.devskiller.infra.azure.resource.SecurityRule.RuleProtocol
 
-Azure.resourceGroup('ci') {
+Infrastructure.azure('ci') {
 
 	region 'westeurope'
 	domainName 'devskiller.com'
