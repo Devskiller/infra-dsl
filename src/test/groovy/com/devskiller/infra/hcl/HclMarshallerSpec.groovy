@@ -2,13 +2,13 @@ package com.devskiller.infra.hcl
 
 import spock.lang.Specification
 
-import com.devskiller.infra.Provider
+import com.devskiller.infra.InfrastructureProvider
 
 class HclMarshallerSpec extends Specification {
 
 	def "should marshall provider"() {
 		when:
-			String provider = HclMarshaller.provider(new Provider("azurerm"))
+			String provider = HclMarshaller.provider(new InfrastructureProvider.Provider("azurerm"))
 		then:
 			provider == '\nprovider "azurerm" {\n}\n'
 	}

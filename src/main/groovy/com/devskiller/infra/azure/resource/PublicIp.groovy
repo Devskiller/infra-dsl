@@ -15,14 +15,26 @@ class PublicIp extends InfrastructureElement {
 		this.name = name
 	}
 
+	/**
+	 * Sets the IP Address allocation method
+	 * @param allocation
+	 */
 	void allocation(IpAllocationMethod allocation) {
 		this.allocation = allocation
 	}
 
+	/**
+	 * Sets the domain name
+	 * @param domainName
+	 */
 	void domainName(String domainName) {
 		this.domainName = domainName
 	}
 
+	/**
+	 * Should be domain name be generated automatically
+	 * @param generateDomainName
+	 */
 	void generateDomainName(boolean generateDomainName) {
 		this.generateDomainName = generateDomainName
 	}

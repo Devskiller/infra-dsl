@@ -13,6 +13,10 @@ class NetworkSecurityGroup extends InfrastructureElement {
 		super(resourceGroup, 'azurerm_network_security_group', name)
 	}
 
+	/**
+	 * Defines the Security Rule
+	 * @param closure
+	 */
 	void securityRule(@DelegatesTo(SecurityRule) Closure closure) {
 		entries << DslContext.create(new SecurityRule(), closure)
 	}

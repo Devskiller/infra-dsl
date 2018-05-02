@@ -1,12 +1,15 @@
 package com.devskiller.infra.azure
 
-import com.devskiller.infra.Infrastructure
-import com.devskiller.infra.Provider
+import com.devskiller.infra.InfrastructureProvider
+
 import com.devskiller.infra.azure.internal.DslContext
 import com.devskiller.infra.azure.resource.DnsZone
 import com.devskiller.infra.azure.resource.Network
 
-class Azure extends Infrastructure {
+/**
+ * Azure Cloud entry point
+ */
+class Azure extends InfrastructureProvider {
 
 	ResourceGroup resourceGroup = new ResourceGroup()
 
@@ -21,31 +24,50 @@ class Azure extends Infrastructure {
 		this.resourceGroup.prefix = prefix
 	}
 
-	static Azure resourceGroup(String name, String prefix = null,
-	                           @DelegatesTo(Azure) Closure closure) {
-		return DslContext.create(new Azure(name, prefix), closure)
-	}
-
+	/**
+	 * Sets the region name (see <code>az account list-locations</code>)
+	 * @param region
+	 */
 	void region(String region) {
 		this.resourceGroup.region = region
 	}
 
+	/**
+	 * Sets the dns domain name
+	 * @param domainName
+	 */
 	void domainName(String domainName) {
 		this.resourceGroup.domainName = domainName
 	}
 
+	/**
+	 * Sets the custom Convention instance
+	 * @param convention
+	 */
 	void convention(Convention convention) {
 		this.resourceGroup.convention = convention
 	}
 
+	/**
+	 * Defines the Virtual Network
+	 * @param closure
+	 */
 	void network(@DelegatesTo(Network) Closure closure) {
 		network = DslContext.create(new Network(resourceGroup), closure)
 	}
 
+	/**
+	 * Defines the DNS Zone
+	 * @param closure
+	 */
 	void dnsZone(@DelegatesTo(DnsZone) Closure closure) {
 		dnsZone = DslContext.create(new DnsZone(resourceGroup), closure)
 	}
 
+	/**
+	 * List of the components
+	 * @param closure
+	 */
 	void components(@DelegatesTo(Components) Closure closure) {
 		components = DslContext.create(new Components(resourceGroup), closure)
 	}

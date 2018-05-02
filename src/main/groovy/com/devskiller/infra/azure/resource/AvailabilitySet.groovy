@@ -13,14 +13,26 @@ class AvailabilitySet extends InfrastructureElement {
 		super(resourceGroup, 'azurerm_availability_set', componentName)
 	}
 
+	/**
+	 * Sets the number of update domains
+	 * @param updateDomains
+	 */
 	void updateDomains(int updateDomains) {
 		this.updateDomains = updateDomains
 	}
 
+	/**
+	 * Sets the number of fault domains
+	 * @param faultDomains
+	 */
 	void faultDomains(int faultDomains) {
 		this.faultDomains = faultDomains
 	}
 
+	/**
+	 * Should the Availability Set be configured as <b>managed</b>
+	 * @param managed
+	 */
 	void managed(boolean managed) {
 		this.managed = managed
 	}

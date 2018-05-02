@@ -1,0 +1,1424 @@
+{
+    "version": "1.2",
+    "root": {
+        "name": "Infra DSL API",
+        "contextClass": "com.devskiller.infra.Infrastructure"
+    },
+    "contexts": {
+        "com.devskiller.infra.azure.resource.AvailabilitySet": {
+            "type": "com.devskiller.infra.azure.resource.AvailabilitySet",
+            "methods": [
+                {
+                    "name": "faultDomains",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "faultDomains",
+                                    "type": "int"
+                                }
+                            ],
+                            "html": "Sets the number of fault domains",
+                            "firstSentenceCommentText": "Sets the number of fault domains"
+                        }
+                    ]
+                },
+                {
+                    "name": "managed",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "managed",
+                                    "type": "boolean"
+                                }
+                            ],
+                            "html": "Should the Availability Set be configured as <b>managed</b>",
+                            "firstSentenceCommentText": "Should the Availability Set be configured as managed"
+                        }
+                    ]
+                },
+                {
+                    "name": "updateDomains",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "updateDomains",
+                                    "type": "int"
+                                }
+                            ],
+                            "html": "Sets the number of update domains",
+                            "firstSentenceCommentText": "Sets the number of update domains"
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.azure.resource.CosmosDB": {
+            "type": "com.devskiller.infra.azure.resource.CosmosDB",
+            "methods": [
+                {
+                    "name": "consistencyLevel",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "consistencyLevel",
+                                    "type": "String"
+                                }
+                            ],
+                            "html": "Sets the consistency level",
+                            "firstSentenceCommentText": "Sets the consistency level"
+                        }
+                    ]
+                },
+                {
+                    "name": "failoverLocation",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "failoverLocation",
+                                    "type": "String"
+                                }
+                            ],
+                            "html": "Sets the failover location",
+                            "firstSentenceCommentText": "Sets the failover location"
+                        }
+                    ]
+                },
+                {
+                    "name": "kind",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "kind",
+                                    "type": "com.devskiller.infra.azure.resource.CosmosDB.CosmosDBKind",
+                                    "enumConstants": [
+                                        "GlobalDocumentDB",
+                                        "MongoDB"
+                                    ]
+                                }
+                            ],
+                            "html": "Sets DB kind",
+                            "firstSentenceCommentText": "Sets DB kind"
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.azure.resource.LoadBalancer$NatRule": {
+            "type": "com.devskiller.infra.azure.resource.LoadBalancer$NatRule",
+            "methods": [
+                {
+                    "name": "backendPort",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "backendPort",
+                                    "type": "int"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "enableFloatingIp",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "enableFloatingIp",
+                                    "type": "Boolean"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "frontendPortEnd",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "frontendPortEnd",
+                                    "type": "int"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "frontendPortStart",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "frontendPortStart",
+                                    "type": "int"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "name",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "name",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "propertyMissing",
+                    "signatures": [
+                        
+                    ]
+                },
+                {
+                    "name": "protocol",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "protocol",
+                                    "type": "com.devskiller.infra.azure.resource.LoadBalancer.TransportProtocol",
+                                    "enumConstants": [
+                                        "Tcp",
+                                        "Udp"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.azure.resource.LoadBalancer$Probe": {
+            "type": "com.devskiller.infra.azure.resource.LoadBalancer$Probe",
+            "methods": [
+                {
+                    "name": "intervalInSeconds",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "intervalInSeconds",
+                                    "type": "Integer"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "name",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "name",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "numberOfProbes",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "numberOfProbes",
+                                    "type": "Integer"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "port",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "port",
+                                    "type": "int"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "propertyMissing",
+                    "signatures": [
+                        
+                    ]
+                },
+                {
+                    "name": "protocol",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "protocol",
+                                    "type": "com.devskiller.infra.azure.resource.LoadBalancer.ProbeProtocol",
+                                    "enumConstants": [
+                                        "Http",
+                                        "Tcp"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "requestPath",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "requestPath",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.azure.resource.LoadBalancer$Rule": {
+            "type": "com.devskiller.infra.azure.resource.LoadBalancer$Rule",
+            "methods": [
+                {
+                    "name": "backendPort",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "backendPort",
+                                    "type": "int"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "enableFloatingIp",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "enableFloatingIp",
+                                    "type": "Boolean"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "frontendPort",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "frontendPort",
+                                    "type": "int"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "loadDistribution",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "loadDistribution",
+                                    "type": "com.devskiller.infra.azure.resource.LoadBalancer.LoadDistribution",
+                                    "enumConstants": [
+                                        "Default",
+                                        "SourceIP",
+                                        "SourceIPProtocol"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "name",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "name",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "probeName",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "probeName",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "propertyMissing",
+                    "signatures": [
+                        
+                    ]
+                },
+                {
+                    "name": "protocol",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "protocol",
+                                    "type": "com.devskiller.infra.azure.resource.LoadBalancer.TransportProtocol",
+                                    "enumConstants": [
+                                        "Tcp",
+                                        "Udp"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.azure.resource.LoadBalancer": {
+            "type": "com.devskiller.infra.azure.resource.LoadBalancer",
+            "methods": [
+                {
+                    "name": "natRule",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "contextClass": "com.devskiller.infra.azure.resource.LoadBalancer$NatRule"
+                        }
+                    ]
+                },
+                {
+                    "name": "privateIpAllocation",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "privateIpAllocation",
+                                    "type": "com.devskiller.infra.azure.resource.IpAllocationMethod",
+                                    "enumConstants": [
+                                        "Static",
+                                        "Dynamic"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "probe",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "contextClass": "com.devskiller.infra.azure.resource.LoadBalancer$Probe"
+                        }
+                    ]
+                },
+                {
+                    "name": "rule",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "contextClass": "com.devskiller.infra.azure.resource.LoadBalancer$Rule"
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.azure.resource.SecurityRule": {
+            "type": "com.devskiller.infra.azure.resource.SecurityRule",
+            "methods": [
+                {
+                    "name": "access",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "access",
+                                    "type": "com.devskiller.infra.azure.resource.SecurityRule.Access",
+                                    "enumConstants": [
+                                        "Allow",
+                                        "Deny"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "destination",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "destination",
+                                    "type": "com.devskiller.infra.azure.resource.SecurityRule.Direction",
+                                    "enumConstants": [
+                                        "Inbound",
+                                        "Outbound"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "destinationAddress",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "destinationAddress",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "destinationPort",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "destinationPort",
+                                    "type": "String"
+                                }
+                            ]
+                        },
+                        {
+                            "parameters": [
+                                {
+                                    "name": "destinationPort",
+                                    "type": "int"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "hasPriority",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "name",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "name",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "priority",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "priority",
+                                    "type": "int"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "protocol",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "protocol",
+                                    "type": "com.devskiller.infra.azure.resource.SecurityRule.RuleProtocol",
+                                    "enumConstants": [
+                                        "Tcp",
+                                        "Udp",
+                                        "Any"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "sourceAddress",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "sourceAddress",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "sourcePort",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "sourcePort",
+                                    "type": "String"
+                                }
+                            ]
+                        },
+                        {
+                            "parameters": [
+                                {
+                                    "name": "sourcePort",
+                                    "type": "int"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.azure.resource.NetworkSecurityGroup": {
+            "type": "com.devskiller.infra.azure.resource.NetworkSecurityGroup",
+            "methods": [
+                {
+                    "name": "securityRule",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "html": "Defines the Security Rule",
+                            "firstSentenceCommentText": "Defines the Security Rule",
+                            "contextClass": "com.devskiller.infra.azure.resource.SecurityRule"
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.azure.resource.PublicIp": {
+            "type": "com.devskiller.infra.azure.resource.PublicIp",
+            "methods": [
+                {
+                    "name": "allocation",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "allocation",
+                                    "type": "com.devskiller.infra.azure.resource.IpAllocationMethod",
+                                    "enumConstants": [
+                                        "Static",
+                                        "Dynamic"
+                                    ]
+                                }
+                            ],
+                            "html": "Sets the IP Address allocation method",
+                            "firstSentenceCommentText": "Sets the IP Address allocation method"
+                        }
+                    ]
+                },
+                {
+                    "name": "domainName",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "domainName",
+                                    "type": "String"
+                                }
+                            ],
+                            "html": "Sets the domain name",
+                            "firstSentenceCommentText": "Sets the domain name"
+                        }
+                    ]
+                },
+                {
+                    "name": "generateDomainName",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "generateDomainName",
+                                    "type": "boolean"
+                                }
+                            ],
+                            "html": "Should be domain name be generated automatically",
+                            "firstSentenceCommentText": "Should be domain name be generated automatically"
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.azure.resource.VirtualMachine$Image": {
+            "type": "com.devskiller.infra.azure.resource.VirtualMachine$Image",
+            "methods": [
+                {
+                    "name": "offer",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "offer",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "propertyMissing",
+                    "signatures": [
+                        
+                    ]
+                },
+                {
+                    "name": "publisher",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "publisher",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "sku",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "sku",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "version",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "version",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.azure.resource.VirtualMachine$OsProfile": {
+            "type": "com.devskiller.infra.azure.resource.VirtualMachine$OsProfile",
+            "methods": [
+                {
+                    "name": "adminPassword",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "adminPassword",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "adminUsername",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "adminUsername",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "disablePasswordAuthentication",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "disablePasswordAuthentication",
+                                    "type": "boolean"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "propertyMissing",
+                    "signatures": [
+                        
+                    ]
+                },
+                {
+                    "name": "sshKey",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "sshKey",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.azure.resource.VirtualMachine": {
+            "type": "com.devskiller.infra.azure.resource.VirtualMachine",
+            "methods": [
+                {
+                    "name": "image",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "contextClass": "com.devskiller.infra.azure.resource.VirtualMachine$Image"
+                        }
+                    ]
+                },
+                {
+                    "name": "osProfile",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "contextClass": "com.devskiller.infra.azure.resource.VirtualMachine$OsProfile"
+                        }
+                    ]
+                },
+                {
+                    "name": "size",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "size",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.azure.resource.NetworkInterface": {
+            "type": "com.devskiller.infra.azure.resource.NetworkInterface",
+            "methods": [
+                {
+                    "name": "enableAcceleratedNetworking",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "enableAcceleratedNetworking",
+                                    "type": "boolean"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "privateIpAllocation",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "privateIpAllocation",
+                                    "type": "com.devskiller.infra.azure.resource.IpAllocationMethod",
+                                    "enumConstants": [
+                                        "Static",
+                                        "Dynamic"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "subnetName",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "subnetName",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.azure.resource.MachineSet": {
+            "type": "com.devskiller.infra.azure.resource.MachineSet",
+            "methods": [
+                {
+                    "name": "instance",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "contextClass": "com.devskiller.infra.azure.resource.VirtualMachine"
+                        }
+                    ]
+                },
+                {
+                    "name": "networkInterface",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "contextClass": "com.devskiller.infra.azure.resource.NetworkInterface"
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.azure.Component": {
+            "type": "com.devskiller.infra.azure.Component",
+            "methods": [
+                {
+                    "name": "availabilitySet",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "html": "Defines Availability Set",
+                            "firstSentenceCommentText": "Defines Availability Set",
+                            "contextClass": "com.devskiller.infra.azure.resource.AvailabilitySet"
+                        }
+                    ]
+                },
+                {
+                    "name": "cosmosDB",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "html": "Defines CosmosDB",
+                            "firstSentenceCommentText": "Defines CosmosDB",
+                            "contextClass": "com.devskiller.infra.azure.resource.CosmosDB"
+                        }
+                    ]
+                },
+                {
+                    "name": "loadBalancer",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "html": "Defines Load Balancer",
+                            "firstSentenceCommentText": "Defines Load Balancer",
+                            "contextClass": "com.devskiller.infra.azure.resource.LoadBalancer"
+                        }
+                    ]
+                },
+                {
+                    "name": "networkSecurityGroup",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "html": "Defines Network Security Group",
+                            "firstSentenceCommentText": "Defines Network Security Group",
+                            "contextClass": "com.devskiller.infra.azure.resource.NetworkSecurityGroup"
+                        }
+                    ]
+                },
+                {
+                    "name": "publicIp",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "html": "Defines Public IP Address",
+                            "firstSentenceCommentText": "Defines Public IP Address",
+                            "contextClass": "com.devskiller.infra.azure.resource.PublicIp"
+                        }
+                    ]
+                },
+                {
+                    "name": "virtualMachine",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "index",
+                                    "type": "int"
+                                },
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "html": "Defines a single VM instance with given index",
+                            "firstSentenceCommentText": "Defines a single VM instance with given index",
+                            "contextClass": "com.devskiller.infra.azure.resource.MachineSet"
+                        },
+                        {
+                            "parameters": [
+                                {
+                                    "name": "suffix",
+                                    "type": "String"
+                                },
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "html": "Defines a single VM instance with given suffix",
+                            "firstSentenceCommentText": "Defines a single VM instance with given suffix",
+                            "contextClass": "com.devskiller.infra.azure.resource.MachineSet"
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.azure.Components": {
+            "type": "com.devskiller.infra.azure.Components",
+            "methods": [
+                {
+                    "name": "component",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "name",
+                                    "type": "String"
+                                },
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "contextClass": "com.devskiller.infra.azure.Component"
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.azure.resource.DnsZone": {
+            "type": "com.devskiller.infra.azure.resource.DnsZone",
+            "methods": [
+                
+            ]
+        },
+        "com.devskiller.infra.azure.resource.NetworkPeering": {
+            "type": "com.devskiller.infra.azure.resource.NetworkPeering",
+            "methods": [
+                {
+                    "name": "remoteResourceGroup",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "name",
+                                    "type": "String"
+                                },
+                                {
+                                    "name": "prefix",
+                                    "type": "String",
+                                    "defaultValue": "null"
+                                },
+                                {
+                                    "name": "region",
+                                    "type": "String",
+                                    "defaultValue": "null"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.azure.resource.Network$PeeringList": {
+            "type": "com.devskiller.infra.azure.resource.Network$PeeringList",
+            "methods": [
+                {
+                    "name": "peering",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "contextClass": "com.devskiller.infra.azure.resource.NetworkPeering"
+                        }
+                    ]
+                },
+                {
+                    "name": "propertyMissing",
+                    "signatures": [
+                        
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.azure.resource.Subnet": {
+            "type": "com.devskiller.infra.azure.resource.Subnet",
+            "methods": [
+                {
+                    "name": "subnetId",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "id",
+                                    "type": "int"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.azure.resource.Network$SubnetList": {
+            "type": "com.devskiller.infra.azure.resource.Network$SubnetList",
+            "methods": [
+                {
+                    "name": "propertyMissing",
+                    "signatures": [
+                        
+                    ]
+                },
+                {
+                    "name": "subnet",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "name",
+                                    "type": "String"
+                                },
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "contextClass": "com.devskiller.infra.azure.resource.Subnet"
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.azure.resource.Network": {
+            "type": "com.devskiller.infra.azure.resource.Network",
+            "methods": [
+                {
+                    "name": "cidr",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "cidr",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "networkId",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "networkId",
+                                    "type": "int"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "peerings",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "contextClass": "com.devskiller.infra.azure.resource.Network$PeeringList"
+                        }
+                    ]
+                },
+                {
+                    "name": "subnets",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "contextClass": "com.devskiller.infra.azure.resource.Network$SubnetList"
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.azure.Azure": {
+            "type": "com.devskiller.infra.azure.Azure",
+            "methods": [
+                {
+                    "name": "components",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "html": "List of the components",
+                            "firstSentenceCommentText": "List of the components",
+                            "contextClass": "com.devskiller.infra.azure.Components"
+                        }
+                    ]
+                },
+                {
+                    "name": "convention",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "convention",
+                                    "type": "com.devskiller.infra.azure.Convention"
+                                }
+                            ],
+                            "html": "Sets the custom Convention instance",
+                            "firstSentenceCommentText": "Sets the custom Convention instance"
+                        }
+                    ]
+                },
+                {
+                    "name": "dnsZone",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "html": "Defines the DNS Zone",
+                            "firstSentenceCommentText": "Defines the DNS Zone",
+                            "contextClass": "com.devskiller.infra.azure.resource.DnsZone"
+                        }
+                    ]
+                },
+                {
+                    "name": "domainName",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "domainName",
+                                    "type": "String"
+                                }
+                            ],
+                            "html": "Sets the dns domain name",
+                            "firstSentenceCommentText": "Sets the dns domain name"
+                        }
+                    ]
+                },
+                {
+                    "name": "network",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "html": "Defines the Virtual Network",
+                            "firstSentenceCommentText": "Defines the Virtual Network",
+                            "contextClass": "com.devskiller.infra.azure.resource.Network"
+                        }
+                    ]
+                },
+                {
+                    "name": "region",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "region",
+                                    "type": "String"
+                                }
+                            ],
+                            "html": "Sets the region name (see <code>az account list-locations</code>)",
+                            "firstSentenceCommentText": "Sets the region name (see az account list-locations)"
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.Infrastructure": {
+            "type": "com.devskiller.infra.Infrastructure",
+            "methods": [
+                {
+                    "name": "aws",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "name",
+                                    "type": "String"
+                                },
+                                {
+                                    "name": "prefix",
+                                    "type": "String",
+                                    "defaultValue": "null"
+                                },
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "html": "Defines AWS VPC",
+                            "firstSentenceCommentText": "Defines AWS VPC",
+                            "contextClass": "com.devskiller.infra.azure.Azure"
+                        }
+                    ]
+                },
+                {
+                    "name": "azure",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "name",
+                                    "type": "String"
+                                },
+                                {
+                                    "name": "prefix",
+                                    "type": "String",
+                                    "defaultValue": "null"
+                                },
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "html": "Defines Azure Resource Group",
+                            "firstSentenceCommentText": "Defines Azure Resource Group",
+                            "contextClass": "com.devskiller.infra.azure.Azure"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

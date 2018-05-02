@@ -1,13 +1,13 @@
 package com.devskiller.infra.runtime
 
-import com.devskiller.infra.Infrastructure
+import com.devskiller.infra.InfrastructureProvider
 import com.devskiller.infra.hcl.HclMarshaller
 
 class TerraformRendered {
 
-	private final Infrastructure infrastructure
+	private final InfrastructureProvider infrastructure
 
-	TerraformRendered(Infrastructure infrastructure) {
+	TerraformRendered(InfrastructureProvider infrastructure) {
 		this.infrastructure = infrastructure
 	}
 

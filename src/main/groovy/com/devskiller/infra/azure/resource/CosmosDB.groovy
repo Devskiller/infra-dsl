@@ -14,14 +14,26 @@ class CosmosDB extends InfrastructureElement {
 		super(resourceGroup, 'azurerm_cosmosdb_account', componentName)
 	}
 
+	/**
+	 * Sets the consistency level
+	 * @param consistencyLevel
+	 */
 	void consistencyLevel(String consistencyLevel) {
 		this.consistencyLevel = consistencyLevel
 	}
 
+	/**
+	 * Sets the failover location
+	 * @param failoverLocation
+	 */
 	void failoverLocation(String failoverLocation) {
 		this.failoverLocation = failoverLocation
 	}
 
+	/**
+	 * Sets DB kind
+	 * @param kind
+	 */
 	void kind(CosmosDBKind kind) {
 		this.kind = kind
 	}

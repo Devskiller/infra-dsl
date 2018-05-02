@@ -1,10 +1,8 @@
 package com.devskiller.infra.aws
 
-import com.devskiller.infra.Infrastructure
-import com.devskiller.infra.Provider
-import com.devskiller.infra.azure.internal.DslContext
+import com.devskiller.infra.InfrastructureProvider
 
-class AWS extends Infrastructure {
+class AWS extends InfrastructureProvider {
 
 	String region
 
@@ -22,8 +20,4 @@ class AWS extends Infrastructure {
 		""
 	}
 
-	static AWS resourceGroup(String name, String prefix = null,
-	                           @DelegatesTo(AWS) Closure closure) {
-		return DslContext.create(new AWS(), closure)
-	}
 }

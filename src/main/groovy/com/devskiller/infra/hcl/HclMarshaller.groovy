@@ -1,10 +1,10 @@
 package com.devskiller.infra.hcl
 
-import com.devskiller.infra.Provider
+import com.devskiller.infra.InfrastructureProvider
 
 class HclMarshaller {
 
-	static String provider(Provider provider) {
+	static String provider(InfrastructureProvider.Provider provider) {
 		return processElement('provider', null, provider.name, provider.properties)
 	}
 

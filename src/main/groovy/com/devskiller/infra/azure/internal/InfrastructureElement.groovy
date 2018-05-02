@@ -1,5 +1,7 @@
 package com.devskiller.infra.azure.internal
 
+import javaposse.jobdsl.dsl.NoDoc
+
 import com.devskiller.infra.azure.ResourceGroup
 import com.devskiller.infra.hcl.HclMarshaller
 import com.devskiller.infra.hcl.HclUtil
@@ -24,20 +26,24 @@ abstract class InfrastructureElement {
 		this.elementName = elementName
 	}
 
+	@NoDoc
 	protected abstract Map getAsMap()
 
+	@NoDoc
 	String renderElement() {
 		HclMarshaller.resource(resourceType,
 				elementName(),
 				elementProperties())
 	}
 
+	@NoDoc
 	String renderDataElement() {
 		HclMarshaller.data(resourceType,
 				elementName(),
 				commonProperties())
 	}
 
+	@NoDoc
 	Map elementProperties(boolean includeLocation = true, boolean includeTags = true) {
 		Map<String, String> properties = commonProperties()
 		if (includeLocation) {
@@ -50,6 +56,7 @@ abstract class InfrastructureElement {
 		return properties
 	}
 
+	@NoDoc
 	Map<String, String> commonProperties() {
 		[
 				'name'               : elementName(),
@@ -57,12 +64,14 @@ abstract class InfrastructureElement {
 		]
 	}
 
+	@NoDoc
 	Map<String, String> location() {
 		[
 				'location'           : resourceGroup.region
 		]
 	}
 
+	@NoDoc
 	String dataSourceElementId(boolean external = false) {
 		String prefix = external ? 'data.' : ''
 		return "\${$prefix$resourceType.${HclUtil.escapeResourceName(elementName())}.id}"
@@ -79,6 +88,7 @@ abstract class InfrastructureElement {
 		resourceGroup.getResourceQualifier(this.class, names)
 	}
 
+	@NoDoc
 	void call(Closure closure) {
 		closure.delegate = this
 		closure.call()

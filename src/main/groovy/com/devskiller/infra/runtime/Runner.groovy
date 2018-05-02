@@ -12,12 +12,12 @@ import java.nio.file.attribute.BasicFileAttributes
 import org.codehaus.groovy.control.CompilerConfiguration
 import org.codehaus.groovy.control.customizers.ImportCustomizer
 
-import com.devskiller.infra.Infrastructure
+import com.devskiller.infra.InfrastructureProvider
 
 class Runner {
 
-	static Infrastructure evaluate(String dsl) {
-		return groovyShell().evaluate(dsl) as Infrastructure
+	static InfrastructureProvider evaluate(String dsl) {
+		return groovyShell().evaluate(dsl) as InfrastructureProvider
 	}
 
 	private static GroovyShell groovyShell() {
@@ -68,7 +68,7 @@ class Runner {
 			System.exit(1)
 		}
 		String dslFilePath = args[0]
-		Infrastructure infrastructure = evaluate(new String(Files.readAllBytes(Paths.get(dslFilePath))))
+		InfrastructureProvider infrastructure = evaluate(new String(Files.readAllBytes(Paths.get(dslFilePath))))
 
 		println '# Generated automatically by InfraDSL from ' + dslFilePath
 		String render = new TerraformRendered(infrastructure).render()
