@@ -1,10 +1,11 @@
 package com.devskiller.infra.azure
 
 import com.devskiller.infra.InfrastructureProvider
-
-import com.devskiller.infra.azure.internal.DslContext
+import com.devskiller.infra.internal.Convention
+import com.devskiller.infra.internal.DslContext
 import com.devskiller.infra.azure.resource.DnsZone
 import com.devskiller.infra.azure.resource.Network
+import com.devskiller.infra.internal.ResourceGroup
 
 /**
  * Azure Cloud entry point

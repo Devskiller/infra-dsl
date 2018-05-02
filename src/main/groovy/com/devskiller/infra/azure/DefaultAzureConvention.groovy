@@ -11,8 +11,10 @@ import com.devskiller.infra.azure.resource.NetworkInterface
 import com.devskiller.infra.azure.resource.NetworkSecurityGroup
 import com.devskiller.infra.azure.resource.PublicIp
 import com.devskiller.infra.azure.resource.Subnet
+import com.devskiller.infra.internal.Convention
+import com.devskiller.infra.internal.ResourceGroup
 
-class DefaultConvention implements Convention {
+class DefaultAzureConvention implements Convention {
 
 	@Override
 	<RT> String getResourceQualifier(Class<RT> resourceType, String namePrefix, ResourceGroup resourceGroup, List<String> resourceNames) {

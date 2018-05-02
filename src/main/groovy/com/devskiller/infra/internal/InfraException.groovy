@@ -1,4 +1,4 @@
-package com.devskiller.infra.azure.internal
+package com.devskiller.infra.internal
 
 class InfraException extends RuntimeException {
 

@@ -1,14 +1,15 @@
 package com.devskiller.infra.azure
 
-import com.devskiller.infra.azure.internal.DslContext
-import com.devskiller.infra.azure.internal.InfrastructureElement
-import com.devskiller.infra.azure.internal.InfrastructureElementCollection
+import com.devskiller.infra.internal.DslContext
+import com.devskiller.infra.internal.InfrastructureElement
+import com.devskiller.infra.internal.InfrastructureElementCollection
 import com.devskiller.infra.azure.resource.AvailabilitySet
 import com.devskiller.infra.azure.resource.CosmosDB
 import com.devskiller.infra.azure.resource.LoadBalancer
 import com.devskiller.infra.azure.resource.MachineSet
 import com.devskiller.infra.azure.resource.NetworkSecurityGroup
 import com.devskiller.infra.azure.resource.PublicIp
+import com.devskiller.infra.internal.ResourceGroup
 
 class Component extends InfrastructureElementCollection {
 

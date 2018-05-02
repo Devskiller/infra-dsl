@@ -1,6 +1,6 @@
-package com.devskiller.infra.azure
+package com.devskiller.infra.internal
 
-import com.devskiller.infra.azure.internal.InfraException
+import com.devskiller.infra.azure.DefaultAzureConvention
 import com.devskiller.infra.hcl.HclMarshaller
 
 class ResourceGroup {
@@ -10,7 +10,7 @@ class ResourceGroup {
 	String region
 	String domainName
 
-	Convention convention = new DefaultConvention()
+	Convention convention = new DefaultAzureConvention()
 
 	String render() {
 		if (!name) {

@@ -1,7 +1,8 @@
 package com.devskiller.infra.azure
 
-import com.devskiller.infra.azure.internal.DslContext
-import com.devskiller.infra.azure.internal.InfrastructureElementCollection
+import com.devskiller.infra.internal.DslContext
+import com.devskiller.infra.internal.InfrastructureElementCollection
+import com.devskiller.infra.internal.ResourceGroup
 
 class Components extends InfrastructureElementCollection {
 

@@ -1,4 +1,4 @@
-package com.devskiller.infra.azure
+package com.devskiller.infra.internal
 
 interface Convention {
 

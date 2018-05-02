@@ -2,7 +2,7 @@ package com.devskiller.infra
 
 import com.devskiller.infra.aws.AWS
 import com.devskiller.infra.azure.Azure
-import com.devskiller.infra.azure.internal.DslContext
+import com.devskiller.infra.internal.DslContext
 
 class Infrastructure {
 

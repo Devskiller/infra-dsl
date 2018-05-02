@@ -1,6 +1,4 @@
-package com.devskiller.infra.azure.internal
-
-import com.devskiller.infra.azure.ResourceGroup
+package com.devskiller.infra.internal
 
 abstract class InfrastructureElementCollection extends InfrastructureElement {
 

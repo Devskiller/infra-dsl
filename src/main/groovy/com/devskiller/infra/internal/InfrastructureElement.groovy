@@ -1,8 +1,7 @@
-package com.devskiller.infra.azure.internal
+package com.devskiller.infra.internal
 
 import javaposse.jobdsl.dsl.NoDoc
 
-import com.devskiller.infra.azure.ResourceGroup
 import com.devskiller.infra.hcl.HclMarshaller
 import com.devskiller.infra.hcl.HclUtil
 
@@ -31,16 +30,12 @@ abstract class InfrastructureElement {
 
 	@NoDoc
 	String renderElement() {
-		HclMarshaller.resource(resourceType,
-				elementName(),
-				elementProperties())
+		HclMarshaller.resource(resourceType, elementName(), elementProperties())
 	}
 
 	@NoDoc
 	String renderDataElement() {
-		HclMarshaller.data(resourceType,
-				elementName(),
-				commonProperties())
+		HclMarshaller.data(resourceType, elementName(), commonProperties())
 	}
 
 	@NoDoc

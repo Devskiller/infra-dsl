@@ -1,7 +1,7 @@
 package com.devskiller.infra.azure.resource
 
-import com.devskiller.infra.azure.ResourceGroup
-import com.devskiller.infra.azure.internal.InfrastructureElement
+import com.devskiller.infra.internal.ResourceGroup
+import com.devskiller.infra.internal.InfrastructureElement
 
 class AvailabilitySet extends InfrastructureElement {
 

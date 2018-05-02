@@ -2,7 +2,7 @@ package com.devskiller.infra.azure.resource
 
 import spock.lang.Specification
 
-import com.devskiller.infra.azure.ResourceGroup
+import com.devskiller.infra.internal.ResourceGroup
 
 class ResourceGroupAwareSpec extends Specification {
 

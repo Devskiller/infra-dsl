@@ -1,9 +1,9 @@
 package com.devskiller.infra.azure.resource
 
-import com.devskiller.infra.azure.internal.DslContext
-import com.devskiller.infra.azure.internal.InfrastructureElement
-import com.devskiller.infra.azure.ResourceGroup
-import com.devskiller.infra.azure.internal.InfrastructureElementCollection
+import com.devskiller.infra.internal.DslContext
+import com.devskiller.infra.internal.InfrastructureElement
+import com.devskiller.infra.internal.ResourceGroup
+import com.devskiller.infra.internal.InfrastructureElementCollection
 
 class Network extends InfrastructureElement {
 

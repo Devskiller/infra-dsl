@@ -2,9 +2,9 @@ package com.devskiller.infra.azure.resource
 
 import groovy.transform.PackageScope
 
-import com.devskiller.infra.azure.ResourceGroup
-import com.devskiller.infra.azure.internal.DslContext
-import com.devskiller.infra.azure.internal.InfrastructureElement
+import com.devskiller.infra.internal.ResourceGroup
+import com.devskiller.infra.internal.DslContext
+import com.devskiller.infra.internal.InfrastructureElement
 
 class LoadBalancer extends InfrastructureElement {
 
