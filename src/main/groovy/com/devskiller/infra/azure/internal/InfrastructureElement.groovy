@@ -77,7 +77,7 @@ abstract class InfrastructureElement {
 		return "\${$prefix$resourceType.${HclUtil.escapeResourceName(elementName())}.id}"
 	}
 
-	protected String elementName() {
+	String elementName() {
 		List<String> names = []
 		if (componentName) {
 			names << componentName

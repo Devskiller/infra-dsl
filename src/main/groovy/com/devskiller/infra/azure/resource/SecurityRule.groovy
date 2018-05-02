@@ -1,5 +1,7 @@
 package com.devskiller.infra.azure.resource
 
+import javaposse.jobdsl.dsl.NoDoc
+
 class SecurityRule {
 
 	private String name
@@ -56,6 +58,7 @@ class SecurityRule {
 		this.priority = priority
 	}
 
+	@NoDoc
 	boolean hasPriority() {
 		return priority > 0
 	}

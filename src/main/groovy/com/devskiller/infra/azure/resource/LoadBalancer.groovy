@@ -244,26 +244,20 @@ class LoadBalancer extends InfrastructureElement {
 
 	class NatRule extends AbstractRule {
 
-		private int frontendPortStart
-		private int frontendPortEnd
+		private int frontendPort
 
 		protected NatRule(ResourceGroup resourceGroup, String componentName) {
-			super(resourceGroup, 'azurerm_lb_nat_pool', componentName)
+			super(resourceGroup, 'azurerm_lb_nat_rule', componentName)
 		}
 
-		void frontendPortStart(int frontendPortStart) {
-			this.frontendPortStart = frontendPortStart
-		}
-
-		void frontendPortEnd(int frontendPortEnd) {
-			this.frontendPortEnd = frontendPortEnd
+		void frontendPort(int frontendPort) {
+			this.frontendPort = frontendPort
 		}
 
 		@Override
 		protected Map getAsMap() {
 			return super.getAsMap() + [
-					'frontend_port_start': frontendPortStart,
-					'frontend_port_end'  : frontendPortEnd
+					'frontend_port': frontendPort
 			]
 		}
 	}

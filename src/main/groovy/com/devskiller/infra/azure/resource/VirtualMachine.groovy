@@ -35,6 +35,10 @@ class VirtualMachine extends InfrastructureElement {
 		DslContext.create(osProfile, closure)
 	}
 
+	void osDisk(@DelegatesTo(Disk) Closure closure) {
+		DslContext.create(disk, closure)
+	}
+
 	@Override
 	protected void setElementName(String elementName) {
 		super.setElementName(elementName)
@@ -64,16 +68,33 @@ class VirtualMachine extends InfrastructureElement {
 
 	class Disk extends InfrastructureElement {
 
+		private Integer diskSize
+		private DiskType diskType = DiskType.Premium_LRS
+
 		protected Disk(ResourceGroup resourceGroup, String componentName) {
 			super(resourceGroup, null, componentName)
 		}
 
+		void diskSize(Integer diskSize) {
+			this.diskSize = diskSize
+		}
+
+		void diskType(DiskType diskType) {
+			this.diskType = diskType
+		}
+
 		@Override
 		protected Map getAsMap() {
-			[
-					'name'         : elementName(),
-					'create_option': 'FromImage'
+			Map map = [
+					'name'             : elementName(),
+					'create_option'    : 'FromImage',
+					'managed_disk_type': diskType
 			]
+
+			if (diskSize) {
+				map << ['disk_size_gb': diskSize]
+			}
+			return map
 		}
 	}
 
@@ -165,5 +186,9 @@ class VirtualMachine extends InfrastructureElement {
 	enum Family {
 
 		Linux, Windows
+	}
+
+	enum DiskType {
+		Standard_LRS, Premium_LRS
 	}
 }

@@ -63,10 +63,9 @@ class NetworkInterface extends InfrastructureElement {
 				frontConfig << ['load_balancer_backend_address_pools_ids': [loadBalancer.getBackendPool().dataSourceElementId()]]
 
 				if (loadBalancer.getNatRules()) {
-					List<String> natRules = loadBalancer.getNatRules().collect {
-						natRule ->
-							natRule.dataSourceElementId()
-					}
+					List<String> natRules = loadBalancer.getNatRules()
+							.find { natRule -> natRule.elementName().endsWith(elementName) }
+							.collect { natRule -> natRule.dataSourceElementId() }
 					frontConfig << ['load_balancer_inbound_nat_rules_ids': natRules]
 				}
 			}
