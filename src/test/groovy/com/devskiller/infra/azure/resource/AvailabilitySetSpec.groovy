@@ -1,6 +1,6 @@
 package com.devskiller.infra.azure.resource
 
-class AvailabilitySetSpec extends ResourceGroupAwareSpec {
+class AvailabilitySetSpec extends AzureResourceGroupAwareSpec {
 
 	def "should render default"() {
 		given:

@@ -1,20 +1,19 @@
-package com.devskiller.infra.azure.resource
+package com.devskiller.infra.aws.resource
 
 import com.devskiller.infra.internal.DslContext
 import com.devskiller.infra.internal.InfrastructureElement
-import com.devskiller.infra.internal.ResourceGroup
 import com.devskiller.infra.internal.InfrastructureElementCollection
+import com.devskiller.infra.internal.ResourceGroup
 import com.devskiller.infra.util.NameUtils
 
-class Network extends InfrastructureElement {
+class Vpc extends InfrastructureElement {
 
 	int networkId = 1
 	String cidr
 	SubnetList subnetList
-	PeeringList peeringList
 
-	Network(ResourceGroup resourceGroup) {
-		super(resourceGroup, 'azurerm_virtual_network')
+	Vpc(ResourceGroup resourceGroup) {
+		super(resourceGroup, 'aws_vpc')
 	}
 
 	void networkId(int networkId) {
@@ -29,10 +28,6 @@ class Network extends InfrastructureElement {
 		subnetList = DslContext.create(new SubnetList(resourceGroup, getNetworkCidr()), closure)
 	}
 
-	void peerings(@DelegatesTo(PeeringList) Closure closure) {
-		peeringList = DslContext.create(new PeeringList(resourceGroup), closure)
-	}
-
 	String getNetworkCidr() {
 		return cidr ?: String.format("10.%d.0.0/16", networkId)
 	}
@@ -40,7 +35,7 @@ class Network extends InfrastructureElement {
 	@Override
 	Map getAsMap() {
 		return [
-				'address_space': [networkCidr]
+				'cidr_block': [networkCidr]
 		]
 	}
 
@@ -49,8 +44,7 @@ class Network extends InfrastructureElement {
 		NameUtils.concatenateElements('\n',
 				[
 						super?.renderElement(),
-						subnetList?.renderElement(),
-						peeringList?.renderElement()
+						subnetList?.renderElement()
 				].findAll({ it != null }))
 	}
 
@@ -65,20 +59,8 @@ class Network extends InfrastructureElement {
 		}
 
 		void subnet(String name, @DelegatesTo(Subnet) Closure closure) {
-			Subnet subnet = new Subnet(resourceGroup, name, networkCidr)
+			Subnet subnet = new Subnet(resourceGroup, name, networkCidr, Vpc.this.dataSourceElementId())
 			entries << DslContext.create(subnet, closure)
-		}
-	}
-
-	class PeeringList extends InfrastructureElementCollection {
-		final List<NetworkPeering> entries = []
-
-		protected PeeringList(ResourceGroup resourceGroup) {
-			super(resourceGroup)
-		}
-
-		void peering(@DelegatesTo(NetworkPeering) Closure closure) {
-			entries << DslContext.create(new NetworkPeering(resourceGroup, Network.this), closure)
 		}
 	}
 

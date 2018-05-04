@@ -35,35 +35,20 @@ abstract class InfrastructureElement {
 
 	@NoDoc
 	String renderDataElement() {
-		HclMarshaller.data(resourceType, elementName(), commonProperties())
+		HclMarshaller.data(resourceType, elementName(), resourceGroup.commonProperties(componentName, elementName()))
 	}
 
 	@NoDoc
 	Map elementProperties(boolean includeLocation = true, boolean includeTags = true) {
-		Map<String, String> properties = commonProperties()
+		Map<String, String> properties = resourceGroup.commonProperties(componentName, elementName())
 		if (includeLocation) {
-			properties << location()
+			properties << resourceGroup.location()
 		}
 		properties << getAsMap()
 		if (includeTags) {
-			properties << resourceGroup.getCommonTags(componentName)
+			properties << resourceGroup.getCommonTags(componentName, elementName())
 		}
 		return properties
-	}
-
-	@NoDoc
-	Map<String, String> commonProperties() {
-		[
-				'name'               : elementName(),
-				'resource_group_name': resourceGroup.getResourceQualifier(ResourceGroup.class, [])
-		]
-	}
-
-	@NoDoc
-	Map<String, String> location() {
-		[
-				'location'           : resourceGroup.region
-		]
 	}
 
 	@NoDoc

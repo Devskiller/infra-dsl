@@ -1,6 +1,6 @@
 package com.devskiller.infra.azure.resource
 
-class SubnetSpec extends ResourceGroupAwareSpec {
+class SubnetSpec extends AzureResourceGroupAwareSpec {
 
 	def "should render subnet"() {
 		given:

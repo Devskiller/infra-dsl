@@ -19,7 +19,7 @@ class Infrastructure {
 	}
 
 	/**
-	 * Defines AWS VPC
+	 * Defines AWS resources
 	 * @param name name of the environment
 	 * @param prefix prefix for all elements in the environment
 	 * @param closure
@@ -27,7 +27,7 @@ class Infrastructure {
 	 */
 	static AWS aws(String name, String prefix = null,
 	                 @DelegatesTo(Azure) Closure closure) {
-		return DslContext.create(new AWS(), closure)
+		return DslContext.create(new AWS(name, prefix), closure)
 	}
 
 }

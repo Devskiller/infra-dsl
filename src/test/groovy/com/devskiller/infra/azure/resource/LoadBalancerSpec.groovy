@@ -1,6 +1,6 @@
 package com.devskiller.infra.azure.resource
 
-class LoadBalancerSpec extends ResourceGroupAwareSpec {
+class LoadBalancerSpec extends AzureResourceGroupAwareSpec {
 
 	def "should render load balancer"() {
 		given:

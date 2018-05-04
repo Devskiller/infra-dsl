@@ -1,6 +1,6 @@
 package com.devskiller.infra.azure.resource
 
-class CosmosDBSpec extends ResourceGroupAwareSpec {
+class CosmosDBSpec extends AzureResourceGroupAwareSpec {
 
 	def "should render"() {
 		given:

@@ -6,13 +6,14 @@ import com.devskiller.infra.internal.DslContext
 import com.devskiller.infra.azure.resource.DnsZone
 import com.devskiller.infra.azure.resource.Network
 import com.devskiller.infra.internal.ResourceGroup
+import com.devskiller.infra.util.NameUtils
 
 /**
  * Azure Cloud entry point
  */
 class Azure extends InfrastructureProvider {
 
-	ResourceGroup resourceGroup = new ResourceGroup()
+	AzureResourceGroup resourceGroup = new AzureResourceGroup()
 
 	Network network
 
@@ -75,7 +76,7 @@ class Azure extends InfrastructureProvider {
 
 	@Override
 	String render() {
-		String.join('\n',
+		NameUtils.concatenateElements('\n',
 				[
 						resourceGroup?.render(),
 						network?.renderElement(),

@@ -1,6 +1,6 @@
 package com.devskiller.infra.azure.resource
 
-class VirtualMachineSpec extends ResourceGroupAwareSpec {
+class VirtualMachineSpec extends AzureResourceGroupAwareSpec {
 
 	def "should render default"() {
 		given:

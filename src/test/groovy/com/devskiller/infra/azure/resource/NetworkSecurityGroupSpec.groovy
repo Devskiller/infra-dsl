@@ -2,7 +2,7 @@ package com.devskiller.infra.azure.resource
 
 import com.devskiller.infra.hcl.FlatList
 
-class NetworkSecurityGroupSpec extends ResourceGroupAwareSpec {
+class NetworkSecurityGroupSpec extends AzureResourceGroupAwareSpec {
 
 	def "should render default"() {
 		given:

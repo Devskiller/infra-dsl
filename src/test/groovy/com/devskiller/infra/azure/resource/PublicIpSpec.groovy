@@ -1,6 +1,6 @@
 package com.devskiller.infra.azure.resource
 
-class PublicIpSpec extends ResourceGroupAwareSpec {
+class PublicIpSpec extends AzureResourceGroupAwareSpec {
 
 	def "should render default"() {
 		given:

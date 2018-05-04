@@ -13,6 +13,7 @@ import com.devskiller.infra.azure.resource.PublicIp
 import com.devskiller.infra.azure.resource.Subnet
 import com.devskiller.infra.internal.Convention
 import com.devskiller.infra.internal.ResourceGroup
+import com.devskiller.infra.util.NameUtils
 
 class DefaultAzureConvention implements Convention {
 
@@ -23,13 +24,13 @@ class DefaultAzureConvention implements Convention {
 		} else if (resourceType == VirtualMachine) {
 			return resourceGroup.name.substring(0, 1) + '-' + resourceGroup.region.substring(0, 2) + resourceGroup.region.substring(5, 6) + '-' + resourceNames.join()
 		} else {
-			return concatenateElements([namePrefix, prefix(resourceGroup), resourceId(resourceType), resourceNames])
+			return NameUtils.concatenateElements([namePrefix, prefix(resourceGroup), resourceId(resourceType), resourceNames])
 		}
 	}
 
 	@Override
 	String getDomainName(String prefix, ResourceGroup resourceGroup, String... resourceNames) {
-		return concatenateElements([prefix, resourceGroup.name, resourceNames])
+		return NameUtils.concatenateElements([prefix, resourceGroup.name, resourceNames])
 	}
 
 	@Override
@@ -62,10 +63,6 @@ class DefaultAzureConvention implements Convention {
 
 	private String prefix(ResourceGroup resourceGroup) {
 		return resourceGroup.name + '-' + regionId(resourceGroup)
-	}
-
-	private String concatenateElements(List<Serializable> nameElements) {
-		String.join('-', nameElements.flatten().findAll({it != null}) as String[])
 	}
 
 }

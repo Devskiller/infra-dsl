@@ -1,6 +1,6 @@
 package com.devskiller.infra.azure.resource
 
-class NetworkInterfaceSpec extends ResourceGroupAwareSpec {
+class NetworkInterfaceSpec extends AzureResourceGroupAwareSpec {
 
 	def "should render default"() {
 		given:

@@ -1,6 +1,6 @@
 package com.devskiller.infra.azure.resource
 
-class NetworkPeeringSpec extends ResourceGroupAwareSpec {
+class NetworkPeeringSpec extends AzureResourceGroupAwareSpec {
 
 	def "should render"() {
 		given:

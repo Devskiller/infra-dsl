@@ -1,5 +1,6 @@
 package com.devskiller.infra.azure.resource
 
+import com.devskiller.infra.azure.AzureResourceGroup
 import com.devskiller.infra.internal.ResourceGroup
 import com.devskiller.infra.internal.InfrastructureElement
 
@@ -15,7 +16,7 @@ class NetworkPeering extends InfrastructureElement {
 	}
 
 	void remoteResourceGroup(String name, String prefix = null, String region = null) {
-		remoteResourceGroup = new ResourceGroup()
+		remoteResourceGroup = new AzureResourceGroup()
 		remoteResourceGroup.name = name
 		remoteResourceGroup.prefix = prefix ?: resourceGroup.prefix
 		remoteResourceGroup.region = region ?: resourceGroup.region

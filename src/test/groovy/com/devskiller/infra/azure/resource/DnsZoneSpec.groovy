@@ -1,6 +1,6 @@
 package com.devskiller.infra.azure.resource
 
-class DnsZoneSpec extends ResourceGroupAwareSpec {
+class DnsZoneSpec extends AzureResourceGroupAwareSpec {
 
 	def "should render default"() {
 		given:
