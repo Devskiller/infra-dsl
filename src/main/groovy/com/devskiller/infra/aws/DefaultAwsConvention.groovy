@@ -1,5 +1,7 @@
 package com.devskiller.infra.aws
 
+import com.devskiller.infra.aws.resource.SecurityGroup
+import com.devskiller.infra.aws.resource.SecurityRule
 import com.devskiller.infra.aws.resource.Subnet
 import com.devskiller.infra.aws.resource.Vpc
 import com.devskiller.infra.internal.Convention
@@ -33,6 +35,8 @@ class DefaultAwsConvention implements Convention {
 		switch (resourceType) {
 			case Vpc: return 'vpc'
 			case Subnet: return 'subnet'
+			case SecurityGroup: return 'sg'
+			case SecurityRule: return 'sr'
 			default: throw new IllegalStateException('No convention for resource ' + resourceType)
 		}
 	}

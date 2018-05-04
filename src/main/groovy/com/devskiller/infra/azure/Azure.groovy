@@ -13,8 +13,6 @@ import com.devskiller.infra.util.NameUtils
  */
 class Azure extends InfrastructureProvider {
 
-	AzureResourceGroup resourceGroup = new AzureResourceGroup()
-
 	Network network
 
 	DnsZone dnsZone
@@ -22,6 +20,7 @@ class Azure extends InfrastructureProvider {
 	Components components
 
 	Azure(String name, String prefix) {
+		this.resourceGroup = new AzureResourceGroup()
 		this.resourceGroup.name = name
 		this.resourceGroup.prefix = prefix
 	}

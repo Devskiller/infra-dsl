@@ -11,7 +11,7 @@ abstract class InfrastructureElement {
 
 	private final String resourceType
 
-	private final String componentName
+	protected final String componentName
 
 	protected String elementName
 

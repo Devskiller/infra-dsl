@@ -20,10 +20,12 @@ class Subnet extends InfrastructureElement {
 		this.subnetId = id
 	}
 
+	@Override
 	Map elementProperties() {
 		elementProperties(false, true)
 	}
 
+	@Override
 	Map getAsMap() {
 		[
 				'vpc_id'    : vpcElementId,

@@ -2,7 +2,11 @@ package com.devskiller.infra
 
 import javaposse.jobdsl.dsl.NoDoc
 
+import com.devskiller.infra.internal.ResourceGroup
+
 abstract class InfrastructureProvider {
+
+	ResourceGroup resourceGroup
 
 	@NoDoc
 	abstract Provider getProvider()
