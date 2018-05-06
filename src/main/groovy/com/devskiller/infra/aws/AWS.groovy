@@ -1,6 +1,7 @@
 package com.devskiller.infra.aws
 
 import com.devskiller.infra.InfrastructureProvider
+import com.devskiller.infra.aws.resource.AmiList
 import com.devskiller.infra.aws.resource.Vpc
 import com.devskiller.infra.internal.DslContext
 import com.devskiller.infra.util.NameUtils
@@ -8,6 +9,8 @@ import com.devskiller.infra.util.NameUtils
 class AWS extends InfrastructureProvider {
 
 	Vpc vpc
+
+	AmiList amiList
 
 	Components components
 
@@ -29,6 +32,10 @@ class AWS extends InfrastructureProvider {
 		vpc = DslContext.create(new Vpc(resourceGroup), closure)
 	}
 
+	void amis(@DelegatesTo(AmiList) Closure closure) {
+		amiList = DslContext.create(new AmiList(resourceGroup), closure)
+	}
+
 	/**
 	 * List of the components
 	 * @param closure
@@ -45,7 +52,7 @@ class AWS extends InfrastructureProvider {
 
 	@Override
 	String render() {
-		NameUtils.concatenateElements('\n', [vpc?.renderElement(), components?.renderElement()])
+		NameUtils.concatenateElements('\n', [vpc?.renderElement(), amiList?.renderElement(), components?.renderElement()])
 	}
 
 }

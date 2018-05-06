@@ -34,8 +34,14 @@ abstract class InfrastructureElement {
 	}
 
 	@NoDoc
-	String renderDataElement() {
-		HclMarshaller.data(resourceType, elementName(), resourceGroup.commonProperties(componentName, elementName()))
+	String renderDataElement(boolean includeElementProperties = false) {
+		Map properties
+		if (includeElementProperties) {
+			properties = elementProperties()
+		} else {
+			properties = resourceGroup.commonProperties(componentName, elementName())
+		}
+		HclMarshaller.data(resourceType, elementName(), properties)
 	}
 
 	@NoDoc

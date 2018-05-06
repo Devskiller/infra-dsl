@@ -1,5 +1,4 @@
 import com.devskiller.infra.Infrastructure
-import com.devskiller.infra.aws.resource.SecurityRule
 
 Infrastructure.aws('sample') {
 
@@ -15,6 +14,13 @@ Infrastructure.aws('sample') {
 		}
 	}
 
+	amis {
+		ami('ubuntu') {
+			name 'ubuntu/images/hvm-ssd/ubuntu-trusty-14.04-amd64-server-*'
+			owner '099720109477'
+		}
+	}
+
 	components {
 		component('vpn') {
 			securityGroup {
@@ -24,6 +30,12 @@ Infrastructure.aws('sample') {
 					fromPort 8080
 					toPort 8081
 				}
+			}
+			virtualMachine(1) {
+				size 't2.micro'
+				subnetName 'vpn'
+				keyName 'private-key.pem'
+				amiName 'ubuntu'
 			}
 		}
 	}
