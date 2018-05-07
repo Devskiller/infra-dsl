@@ -43,6 +43,11 @@ class SecurityRule extends InfrastructureElement {
 	}
 
 	@Override
+	Map elementProperties() {
+		return super.elementProperties(false, false)
+	}
+
+	@Override
 	Map getAsMap() {
 		Map map = [
 				'security_group_id': securityGroupElementId,

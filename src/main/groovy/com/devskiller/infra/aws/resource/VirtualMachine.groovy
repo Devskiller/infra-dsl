@@ -40,7 +40,7 @@ class VirtualMachine extends InfrastructureElement {
 	protected Map getAsMap() {
 		return [
 				'instance_type'         : size,
-				'vpc_security_group_ids': securityGroup.dataSourceElementId(),
+				'vpc_security_group_ids': [securityGroup.dataSourceElementId()],
 				'key_name'              : keyName,
 				'subnet_id'             : new Subnet(this.resourceGroup, subnetName, null, vpcElementId).dataSourceElementId(),
 				'ami'                   : new Ami(this.resourceGroup, amiName).dataSourceElementId(true),

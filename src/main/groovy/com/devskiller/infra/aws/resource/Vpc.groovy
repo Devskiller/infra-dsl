@@ -35,7 +35,7 @@ class Vpc extends InfrastructureElement {
 	@Override
 	Map getAsMap() {
 		return [
-				'cidr_block': [networkCidr]
+				'cidr_block': networkCidr
 		]
 	}
 
