@@ -9,7 +9,7 @@ class AmiList extends InfrastructureElementCollection {
 
 	List<Ami> amis = new ArrayList<>()
 
-	protected AmiList(ResourceGroup resourceGroup) {
+	AmiList(ResourceGroup resourceGroup) {
 		super(resourceGroup)
 	}
 

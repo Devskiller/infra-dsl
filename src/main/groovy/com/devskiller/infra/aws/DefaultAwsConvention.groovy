@@ -1,6 +1,7 @@
 package com.devskiller.infra.aws
 
 import com.devskiller.infra.aws.resource.Ami
+import com.devskiller.infra.aws.resource.ElasticLoadBalancer
 import com.devskiller.infra.aws.resource.SecurityGroup
 import com.devskiller.infra.aws.resource.SecurityRule
 import com.devskiller.infra.aws.resource.Subnet
@@ -35,6 +36,7 @@ class DefaultAwsConvention implements Convention {
 			case SecurityRule: return 'sr'
 			case VirtualMachine: return 'vm'
 			case Ami: return 'ami'
+			case ElasticLoadBalancer: return 'elb'
 			default: throw new IllegalStateException('No convention for resource ' + resourceType)
 		}
 	}

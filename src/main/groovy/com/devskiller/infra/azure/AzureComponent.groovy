@@ -11,12 +11,12 @@ import com.devskiller.infra.azure.resource.NetworkSecurityGroup
 import com.devskiller.infra.azure.resource.PublicIp
 import com.devskiller.infra.internal.ResourceGroup
 
-class Component extends InfrastructureElementCollection {
+class AzureComponent extends InfrastructureElementCollection {
 
 	String name
 	List<InfrastructureElement> entries = []
 
-	Component(ResourceGroup resourceGroup, String name) {
+	AzureComponent(ResourceGroup resourceGroup, String name) {
 		super(resourceGroup)
 		this.name = name
 	}

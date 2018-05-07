@@ -5,6 +5,795 @@
         "contextClass": "com.devskiller.infra.Infrastructure"
     },
     "contexts": {
+        "com.devskiller.infra.aws.resource.Ami": {
+            "type": "com.devskiller.infra.aws.resource.Ami",
+            "methods": [
+                {
+                    "name": "elementName",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "mostRecent",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "mostRecent",
+                                    "type": "boolean"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "name",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "name",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "owner",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "owner",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.aws.resource.AmiList": {
+            "type": "com.devskiller.infra.aws.resource.AmiList",
+            "methods": [
+                {
+                    "name": "ami",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "name",
+                                    "type": "String"
+                                },
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "contextClass": "com.devskiller.infra.aws.resource.Ami"
+                        }
+                    ]
+                },
+                {
+                    "name": "elementName",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.aws.resource.ElasticLoadBalancer$HealthCheck": {
+            "type": "com.devskiller.infra.aws.resource.ElasticLoadBalancer$HealthCheck",
+            "methods": [
+                {
+                    "name": "healthyThreshold",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "healthyThreshold",
+                                    "type": "int"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "interval",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "interval",
+                                    "type": "int"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "propertyMissing",
+                    "signatures": [
+                        
+                    ]
+                },
+                {
+                    "name": "target",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "target",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "timeout",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "timeout",
+                                    "type": "int"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "unhealthyThreshold",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "unhealthyThreshold",
+                                    "type": "int"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.aws.resource.ElasticLoadBalancer$Listener": {
+            "type": "com.devskiller.infra.aws.resource.ElasticLoadBalancer$Listener",
+            "methods": [
+                {
+                    "name": "instancePort",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "instancePort",
+                                    "type": "int"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "instanceProtocol",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "instanceProtocol",
+                                    "type": "com.devskiller.infra.aws.resource.ListenerProtocol",
+                                    "enumConstants": [
+                                        "HTTP",
+                                        "HTTPS",
+                                        "TCP",
+                                        "SSL"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "lbPort",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "lbPort",
+                                    "type": "int"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "lbProtocol",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "lbProtocol",
+                                    "type": "com.devskiller.infra.aws.resource.ListenerProtocol",
+                                    "enumConstants": [
+                                        "HTTP",
+                                        "HTTPS",
+                                        "TCP",
+                                        "SSL"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "propertyMissing",
+                    "signatures": [
+                        
+                    ]
+                },
+                {
+                    "name": "sslCertificateId",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "sslCertificateId",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.aws.resource.ElasticLoadBalancer": {
+            "type": "com.devskiller.infra.aws.resource.ElasticLoadBalancer",
+            "methods": [
+                {
+                    "name": "elementName",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "healthCheck",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "contextClass": "com.devskiller.infra.aws.resource.ElasticLoadBalancer$HealthCheck"
+                        }
+                    ]
+                },
+                {
+                    "name": "listener",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "contextClass": "com.devskiller.infra.aws.resource.ElasticLoadBalancer$Listener"
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.aws.resource.SecurityRule": {
+            "type": "com.devskiller.infra.aws.resource.SecurityRule",
+            "methods": [
+                {
+                    "name": "description",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "description",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "direction",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "direction",
+                                    "type": "com.devskiller.infra.aws.resource.SecurityRule.Direction",
+                                    "enumConstants": [
+                                        "Inbound",
+                                        "Outbound"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "elementName",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "fromPort",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "fromPort",
+                                    "type": "int"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "protocol",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "protocol",
+                                    "type": "com.devskiller.infra.aws.resource.SecurityRule.RuleProtocol",
+                                    "enumConstants": [
+                                        "icmp",
+                                        "tcp",
+                                        "udp",
+                                        "all"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "self",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "self",
+                                    "type": "Boolean"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "toPort",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "toPort",
+                                    "type": "int"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.aws.resource.SecurityGroup": {
+            "type": "com.devskiller.infra.aws.resource.SecurityGroup",
+            "methods": [
+                {
+                    "name": "elementName",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "securityRule",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "ruleName",
+                                    "type": "String"
+                                },
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "html": "Defines the Security Rule",
+                            "firstSentenceCommentText": "Defines the Security Rule",
+                            "contextClass": "com.devskiller.infra.aws.resource.SecurityRule"
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.aws.resource.VirtualMachine": {
+            "type": "com.devskiller.infra.aws.resource.VirtualMachine",
+            "methods": [
+                {
+                    "name": "amiName",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "amiName",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "elementName",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "keyName",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "keyName",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "size",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "size",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.aws.AwsComponent": {
+            "type": "com.devskiller.infra.aws.AwsComponent",
+            "methods": [
+                {
+                    "name": "elasticLoadBalancer",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "contextClass": "com.devskiller.infra.aws.resource.ElasticLoadBalancer"
+                        }
+                    ]
+                },
+                {
+                    "name": "elementName",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "securityGroup",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "html": "Defines Network Security Group",
+                            "firstSentenceCommentText": "Defines Network Security Group",
+                            "contextClass": "com.devskiller.infra.aws.resource.SecurityGroup"
+                        }
+                    ]
+                },
+                {
+                    "name": "virtualMachine",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "index",
+                                    "type": "int"
+                                },
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "html": "Defines a single VM instance with given index",
+                            "firstSentenceCommentText": "Defines a single VM instance with given index",
+                            "contextClass": "com.devskiller.infra.aws.resource.VirtualMachine"
+                        },
+                        {
+                            "parameters": [
+                                {
+                                    "name": "suffix",
+                                    "type": "String"
+                                },
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "html": "Defines a single VM instance with given suffix",
+                            "firstSentenceCommentText": "Defines a single VM instance with given suffix",
+                            "contextClass": "com.devskiller.infra.aws.resource.VirtualMachine"
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.aws.AwsComponents": {
+            "type": "com.devskiller.infra.aws.AwsComponents",
+            "methods": [
+                {
+                    "name": "component",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "name",
+                                    "type": "String"
+                                },
+                                {
+                                    "name": "subnetName",
+                                    "type": "String"
+                                },
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "contextClass": "com.devskiller.infra.aws.AwsComponent"
+                        }
+                    ]
+                },
+                {
+                    "name": "elementName",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.aws.resource.Subnet": {
+            "type": "com.devskiller.infra.aws.resource.Subnet",
+            "methods": [
+                {
+                    "name": "elementName",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "subnetId",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "id",
+                                    "type": "int"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.aws.resource.Vpc$SubnetList": {
+            "type": "com.devskiller.infra.aws.resource.Vpc$SubnetList",
+            "methods": [
+                {
+                    "name": "elementName",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "propertyMissing",
+                    "signatures": [
+                        
+                    ]
+                },
+                {
+                    "name": "subnet",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "name",
+                                    "type": "String"
+                                },
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "contextClass": "com.devskiller.infra.aws.resource.Subnet"
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.aws.resource.Vpc": {
+            "type": "com.devskiller.infra.aws.resource.Vpc",
+            "methods": [
+                {
+                    "name": "cidr",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "cidr",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "elementName",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "networkId",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "networkId",
+                                    "type": "int"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "subnets",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "contextClass": "com.devskiller.infra.aws.resource.Vpc$SubnetList"
+                        }
+                    ]
+                }
+            ]
+        },
+        "com.devskiller.infra.aws.AWS": {
+            "type": "com.devskiller.infra.aws.AWS",
+            "methods": [
+                {
+                    "name": "amis",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "contextClass": "com.devskiller.infra.aws.resource.AmiList"
+                        }
+                    ]
+                },
+                {
+                    "name": "components",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "html": "List of the components",
+                            "firstSentenceCommentText": "List of the components",
+                            "contextClass": "com.devskiller.infra.aws.AwsComponents"
+                        }
+                    ]
+                },
+                {
+                    "name": "region",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "region",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "vpc",
+                    "signatures": [
+                        {
+                            "parameters": [
+                                {
+                                    "name": "closure",
+                                    "type": "Closure"
+                                }
+                            ],
+                            "html": "Defines the VPC",
+                            "firstSentenceCommentText": "Defines the VPC",
+                            "contextClass": "com.devskiller.infra.aws.resource.Vpc"
+                        }
+                    ]
+                }
+            ]
+        },
         "com.devskiller.infra.azure.resource.AvailabilitySet": {
             "type": "com.devskiller.infra.azure.resource.AvailabilitySet",
             "methods": [
@@ -1111,8 +1900,8 @@
                 }
             ]
         },
-        "com.devskiller.infra.azure.Component": {
-            "type": "com.devskiller.infra.azure.Component",
+        "com.devskiller.infra.azure.AzureComponent": {
+            "type": "com.devskiller.infra.azure.AzureComponent",
             "methods": [
                 {
                     "name": "availabilitySet",
@@ -1241,8 +2030,8 @@
                 }
             ]
         },
-        "com.devskiller.infra.azure.Components": {
-            "type": "com.devskiller.infra.azure.Components",
+        "com.devskiller.infra.azure.AzureComponents": {
+            "type": "com.devskiller.infra.azure.AzureComponents",
             "methods": [
                 {
                     "name": "component",
@@ -1258,7 +2047,7 @@
                                     "type": "Closure"
                                 }
                             ],
-                            "contextClass": "com.devskiller.infra.azure.Component"
+                            "contextClass": "com.devskiller.infra.azure.AzureComponent"
                         }
                     ]
                 },
@@ -1513,7 +2302,7 @@
                             ],
                             "html": "List of the components",
                             "firstSentenceCommentText": "List of the components",
-                            "contextClass": "com.devskiller.infra.azure.Components"
+                            "contextClass": "com.devskiller.infra.azure.AzureComponents"
                         }
                     ]
                 },
@@ -1620,7 +2409,7 @@
                             ],
                             "html": "Defines AWS resources",
                             "firstSentenceCommentText": "Defines AWS resources",
-                            "contextClass": "com.devskiller.infra.azure.Azure"
+                            "contextClass": "com.devskiller.infra.aws.AWS"
                         }
                     ]
                 },

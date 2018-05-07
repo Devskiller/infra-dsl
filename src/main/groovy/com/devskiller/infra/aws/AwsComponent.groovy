@@ -1,5 +1,6 @@
 package com.devskiller.infra.aws
 
+import com.devskiller.infra.aws.resource.ElasticLoadBalancer
 import com.devskiller.infra.aws.resource.SecurityGroup
 import com.devskiller.infra.aws.resource.VirtualMachine
 import com.devskiller.infra.internal.DslContext
@@ -7,16 +8,18 @@ import com.devskiller.infra.internal.InfrastructureElement
 import com.devskiller.infra.internal.InfrastructureElementCollection
 import com.devskiller.infra.internal.ResourceGroup
 
-class Component extends InfrastructureElementCollection {
+class AwsComponent extends InfrastructureElementCollection {
 
 	private final String vpcElementId
+	private final String subnetName
 
-	String name
+	private final String name
 
 	List<InfrastructureElement> entries = []
 
-	Component(ResourceGroup resourceGroup, String name, String vpcElementId) {
+	AwsComponent(ResourceGroup resourceGroup, String name, String subnetName, String vpcElementId) {
 		super(resourceGroup)
+		this.subnetName = subnetName
 		this.vpcElementId = vpcElementId
 		this.name = name
 	}
@@ -46,14 +49,23 @@ class Component extends InfrastructureElementCollection {
 	void virtualMachine(String suffix, @DelegatesTo(VirtualMachine) Closure closure) {
 		entries << DslContext.create(
 				new VirtualMachine(resourceGroup, name, suffix,
-						findDependantElement(SecurityGroup), vpcElementId
+						findDependantElement(SecurityGroup), subnetName, vpcElementId
 				),
 				closure)
+	}
+
+	void elasticLoadBalancer(@DelegatesTo(ElasticLoadBalancer) Closure closure) {
+		entries << DslContext.create(new ElasticLoadBalancer(resourceGroup, name, subnetName,
+				findDependantElements(VirtualMachine), findDependantElement(SecurityGroup)), closure)
 	}
 
 
 	private <T> T findDependantElement(Class<T> elementClass) {
 		entries.find { (it.getClass() == elementClass) } as T
+	}
+
+	private <T> List<T> findDependantElements(Class<T> elementClass) {
+		entries.findAll() { (it.getClass() == elementClass) } as List<T>
 	}
 
 }

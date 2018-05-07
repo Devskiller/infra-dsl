@@ -12,7 +12,7 @@ class AWS extends InfrastructureProvider {
 
 	AmiList amiList
 
-	Components components
+	AwsComponents components
 
 	AWS(String name, String prefix) {
 		this.resourceGroup = new AwsResourceGroup()
@@ -40,8 +40,8 @@ class AWS extends InfrastructureProvider {
 	 * List of the components
 	 * @param closure
 	 */
-	void components(@DelegatesTo(Components) Closure closure) {
-		components = DslContext.create(new Components(resourceGroup, vpc.dataSourceElementId()), closure)
+	void components(@DelegatesTo(AwsComponents) Closure closure) {
+		components = DslContext.create(new AwsComponents(resourceGroup, vpc.dataSourceElementId()), closure)
 	}
 
 

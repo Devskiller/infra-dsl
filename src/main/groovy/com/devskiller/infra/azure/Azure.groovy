@@ -5,7 +5,6 @@ import com.devskiller.infra.internal.Convention
 import com.devskiller.infra.internal.DslContext
 import com.devskiller.infra.azure.resource.DnsZone
 import com.devskiller.infra.azure.resource.Network
-import com.devskiller.infra.internal.ResourceGroup
 import com.devskiller.infra.util.NameUtils
 
 /**
@@ -17,7 +16,7 @@ class Azure extends InfrastructureProvider {
 
 	DnsZone dnsZone
 
-	Components components
+	AzureComponents components
 
 	Azure(String name, String prefix) {
 		this.resourceGroup = new AzureResourceGroup()
@@ -69,8 +68,8 @@ class Azure extends InfrastructureProvider {
 	 * List of the components
 	 * @param closure
 	 */
-	void components(@DelegatesTo(Components) Closure closure) {
-		components = DslContext.create(new Components(resourceGroup), closure)
+	void components(@DelegatesTo(AzureComponents) Closure closure) {
+		components = DslContext.create(new AzureComponents(resourceGroup), closure)
 	}
 
 	@Override

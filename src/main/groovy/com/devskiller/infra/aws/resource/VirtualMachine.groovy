@@ -12,9 +12,10 @@ class VirtualMachine extends InfrastructureElement {
 	private final String vpcElementId
 	private String amiName
 
-	protected VirtualMachine(ResourceGroup resourceGroup, String componentName, String elementName,
-	                         SecurityGroup securityGroup, String vpcElementId) {
+	VirtualMachine(ResourceGroup resourceGroup, String componentName, String elementName,
+	                         SecurityGroup securityGroup, String subnetName, String vpcElementId) {
 		super(resourceGroup, 'aws_instance', componentName)
+		this.subnetName = subnetName
 		this.vpcElementId = vpcElementId
 		this.securityGroup = securityGroup
 		setElementName(elementName)
@@ -22,10 +23,6 @@ class VirtualMachine extends InfrastructureElement {
 
 	void size(String size) {
 		this.size = size
-	}
-
-	void subnetName(String subnetName) {
-		this.subnetName = subnetName
 	}
 
 	void keyName(String keyName) {

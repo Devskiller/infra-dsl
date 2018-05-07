@@ -26,7 +26,7 @@ class Infrastructure {
 	 * @return
 	 */
 	static AWS aws(String name, String prefix = null,
-	                 @DelegatesTo(Azure) Closure closure) {
+	                 @DelegatesTo(AWS) Closure closure) {
 		return DslContext.create(new AWS(name, prefix), closure)
 	}
 
