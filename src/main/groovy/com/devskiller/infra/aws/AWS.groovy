@@ -32,6 +32,10 @@ class AWS extends InfrastructureProvider {
 		vpc = DslContext.create(new Vpc(resourceGroup), closure)
 	}
 
+	/**
+	 * Defines Machine Images that will be used during VM creation
+	 * @param closure
+	 */
 	void amis(@DelegatesTo(AmiList) Closure closure) {
 		amiList = DslContext.create(new AmiList(resourceGroup), closure)
 	}

@@ -54,6 +54,13 @@ class AwsComponent extends InfrastructureElementCollection {
 				closure)
 	}
 
+	/**
+	 * Defines ELB instance.
+	 *
+	 * As ELB references instances it should be defined AFTER virtual machines
+	 *
+	 * @param closure
+	 */
 	void elasticLoadBalancer(@DelegatesTo(ElasticLoadBalancer) Closure closure) {
 		entries << DslContext.create(new ElasticLoadBalancer(resourceGroup, name, subnetName,
 				findDependantElements(VirtualMachine), findDependantElement(SecurityGroup)), closure)

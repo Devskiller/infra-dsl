@@ -76,6 +76,8 @@
                                     "type": "Closure"
                                 }
                             ],
+                            "html": "Defines AMI",
+                            "firstSentenceCommentText": "Defines AMI",
                             "contextClass": "com.devskiller.infra.aws.resource.Ami"
                         }
                     ]
@@ -504,6 +506,8 @@
                                     "type": "Closure"
                                 }
                             ],
+                            "html": "Defines ELB instance.\n\n As ELB references instances it should be defined AFTER virtual machines",
+                            "firstSentenceCommentText": "Defines ELB instance.",
                             "contextClass": "com.devskiller.infra.aws.resource.ElasticLoadBalancer"
                         }
                     ]
@@ -743,6 +747,8 @@
                                     "type": "Closure"
                                 }
                             ],
+                            "html": "Defines Machine Images that will be used during VM creation",
+                            "firstSentenceCommentText": "Defines Machine Images that will be used during VM creation",
                             "contextClass": "com.devskiller.infra.aws.resource.AmiList"
                         }
                     ]

@@ -13,6 +13,11 @@ class AmiList extends InfrastructureElementCollection {
 		super(resourceGroup)
 	}
 
+	/**
+	 * Defines AMI
+	 * @param name which will be used in the VM definition
+	 * @param closure
+	 */
 	void ami(String name, @DelegatesTo(Ami) Closure closure) {
 		Ami ami = new Ami(resourceGroup, name)
 		DslContext.create(ami, closure)
