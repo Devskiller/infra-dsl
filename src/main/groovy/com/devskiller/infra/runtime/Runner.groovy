@@ -1,5 +1,7 @@
 package com.devskiller.infra.runtime
 
+import java.nio.file.FileSystem
+import java.nio.file.FileSystemNotFoundException
 import java.nio.file.FileSystems
 import java.nio.file.FileVisitResult
 import java.nio.file.Files
@@ -13,6 +15,7 @@ import org.codehaus.groovy.control.CompilerConfiguration
 import org.codehaus.groovy.control.customizers.ImportCustomizer
 
 import com.devskiller.infra.InfrastructureProvider
+import com.devskiller.infra.runtime.TerraformRendered
 
 class Runner {
 
@@ -24,7 +27,7 @@ class Runner {
 		CompilerConfiguration compilerConfiguration = new CompilerConfiguration(sourceEncoding: 'UTF-8')
 		ImportCustomizer importCustomizer = new ImportCustomizer()
 
-		listClassNamesInPackage('com.devskiller.infra.azure').each {
+		listClassNamesInPackage('com.devskiller.infra').each {
 			clazz -> importCustomizer.addImports(clazz)
 		}
 
@@ -38,28 +41,64 @@ class Runner {
 		if (!resources.hasMoreElements()) {
 			throw new IllegalStateException("No package found: " + packageName)
 		}
-		PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:*.class")
+
 		while (resources.hasMoreElements()) {
 			URL resource = resources.nextElement()
-			Files.walkFileTree(Paths.get(resource.toURI()), new SimpleFileVisitor<Path>() {
-				@Override
-				FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
-					if (pathMatcher.matches(path.getFileName())) {
-						try {
-							String className = Paths.get(resource.toURI()).relativize(path).toString().replace(File.separatorChar, '.' as char)
-							String fullName = Class.forName(packageName + '.' + className.substring(0, className.length() - 6)).getCanonicalName()
-							if (fullName) {
-								classes << fullName
+			if (resource.getProtocol() == 'jar') {
+				getJarFileSystem(resource).withCloseable {
+					fs ->
+						PathMatcher pathMatcher = fs.getPathMatcher("glob:**/com/devskiller/infra/**.class")
+						Files.walkFileTree(fs.getPath('/'), new SimpleFileVisitor<Path>() {
+
+							@Override
+							FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
+								if (pathMatcher.matches(path)) {
+									try {
+										String className = fs.getPath('/').relativize(path).toString().replace(File.separatorChar, '.' as char)
+										String fullName = Class.forName(className.substring(0, className.length() - 6)).getCanonicalName()
+										if (fullName) {
+											classes << fullName
+										}
+									} catch (URISyntaxException e) {
+										throw new IllegalStateException(e)
+									}
+
+								}
+								return FileVisitResult.CONTINUE
 							}
-						} catch (URISyntaxException e) {
-							throw new IllegalStateException(e)
-						}
-					}
-					return FileVisitResult.CONTINUE
+						})
 				}
-			})
+			} else {
+				PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:*.class")
+				Files.walkFileTree(Paths.get(resource.toURI().getSchemeSpecificPart()), new SimpleFileVisitor<Path>() {
+
+					@Override
+					FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
+						if (pathMatcher.matches(path.getFileName())) {
+							try {
+								String className = Paths.get(resource.toURI()).relativize(path).toString().replace(File.separatorChar, '.' as char)
+								String fullName = Class.forName(packageName + '.' + className.substring(0, className.length() - 6)).getCanonicalName()
+								if (fullName) {
+									classes << fullName
+								}
+							} catch (URISyntaxException e) {
+								throw new IllegalStateException(e)
+							}
+						}
+						return FileVisitResult.CONTINUE
+					}
+				})
+			}
 		}
 		return classes
+	}
+
+	private static FileSystem getJarFileSystem(URL resource) {
+		try {
+			return FileSystems.getFileSystem(resource.toURI())
+		} catch (FileSystemNotFoundException e) {
+			return FileSystems.newFileSystem(resource.toURI(), [:])
+		}
 	}
 
 	static void main(String[] args) {

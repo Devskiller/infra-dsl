@@ -27,7 +27,7 @@ Infrastructure.aws('sample') {
 			securityGroup {
 				securityRule('openvpn-udp') {
 					// must be qualified import as Idea doesn't work with two same classes name on classpath
-					direction com.devskiller.infra.aws.resource.SecurityRule.Direction.Inbound
+					direction Direction.Inbound
 					fromPort 8080
 					toPort 8081
 				}
