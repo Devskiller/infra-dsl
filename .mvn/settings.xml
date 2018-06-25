@@ -11,13 +11,9 @@
         </server>
     </servers>
 
-    <activeProfiles>
-        <activeProfile>release</activeProfile>
-    </activeProfiles>
-
     <profiles>
         <profile>
-            <id>release</id>
+            <id>publish</id>
             <properties>
                 <gpg.keyname>${env.GPG_KEY_NAME}</gpg.keyname>
                 <gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>

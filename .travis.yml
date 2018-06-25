@@ -1,6 +1,10 @@
 language: java
 jdk:
 - oraclejdk8
+cache:
+  directories:
+  - ~/.m2/repository
+  - ~/.m2/wrapper
 branches:
   except:
   - /^v\d+\-b\d+$/
