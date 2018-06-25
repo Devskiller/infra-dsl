@@ -15,7 +15,6 @@ import org.codehaus.groovy.control.CompilerConfiguration
 import org.codehaus.groovy.control.customizers.ImportCustomizer
 
 import com.devskiller.infra.InfrastructureProvider
-import com.devskiller.infra.runtime.TerraformRendered
 
 class Runner {
 

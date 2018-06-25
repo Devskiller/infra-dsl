@@ -1,8 +1,8 @@
 package com.devskiller.infra.azure.resource
 
-import com.devskiller.infra.internal.ResourceGroup
 import com.devskiller.infra.internal.DslContext
 import com.devskiller.infra.internal.InfrastructureElement
+import com.devskiller.infra.internal.ResourceGroup
 
 class VirtualMachine extends InfrastructureElement {
 
@@ -14,17 +14,22 @@ class VirtualMachine extends InfrastructureElement {
 
 	private Image image = new Image()
 	private OsProfile osProfile = new OsProfile()
-	private Disk disk
+	private Disk osDisk
+	private List<Disk> storageDisks = new ArrayList<>()
 
 	protected VirtualMachine(ResourceGroup resourceGroup, String componentName, AvailabilitySet availabilitySet) {
 		super(resourceGroup, 'azurerm_virtual_machine', componentName)
 		this.availabilitySet = availabilitySet
 		this.networkInterface = new NetworkInterface(resourceGroup, componentName, null, null)
-		this.disk = new Disk(resourceGroup, componentName)
+		this.osDisk = new Disk(resourceGroup, componentName)
 	}
 
 	void size(String size) {
 		this.size = size
+	}
+
+	void family(Family family) {
+		this.family = family
 	}
 
 	void image(@DelegatesTo(Image) Closure closure) {
@@ -36,14 +41,18 @@ class VirtualMachine extends InfrastructureElement {
 	}
 
 	void osDisk(@DelegatesTo(Disk) Closure closure) {
-		DslContext.create(disk, closure)
+		DslContext.create(osDisk, closure)
+	}
+
+	void storageDisk(@DelegatesTo(Disk) Closure closure) {
+		storageDisks << DslContext.create(new Disk(resourceGroup, componentName), closure)
 	}
 
 	@Override
 	protected void setElementName(String elementName) {
 		super.setElementName(elementName)
 		networkInterface.setElementName(elementName)
-		disk.setElementName(elementName + '-os') //fixme
+		osDisk.setElementName(elementName + '-os') //fixme
 	}
 
 	@Override
@@ -59,9 +68,16 @@ class VirtualMachine extends InfrastructureElement {
 			map << ['availability_set_id': availabilitySet.dataSourceElementId()]
 		}
 
-		map << ['storage_os_disk': disk.getAsMap()]
+		map << ['storage_os_disk': osDisk.getAsMap()]
 		map << image.getAsMap()
 		map << osProfile.getAsMap()
+
+		storageDisks.eachWithIndex {
+			disk, index ->
+				disk.setElementName(elementName + '-data-' + (index + 1))
+				disk.setLun(index)
+				map << ['storage_data_disk': disk.asMap]
+		}
 
 		return map
 	}
@@ -70,6 +86,8 @@ class VirtualMachine extends InfrastructureElement {
 
 		private Integer diskSize
 		private DiskType diskType = DiskType.Premium_LRS
+		private CreateOption createOption = CreateOption.FromImage
+		private Integer lun
 
 		protected Disk(ResourceGroup resourceGroup, String componentName) {
 			super(resourceGroup, null, componentName)
@@ -83,18 +101,30 @@ class VirtualMachine extends InfrastructureElement {
 			this.diskType = diskType
 		}
 
+		void createOption(CreateOption createOption) {
+			this.createOption = createOption
+		}
+
 		@Override
 		protected Map getAsMap() {
 			Map map = [
 					'name'             : elementName(),
-					'create_option'    : 'FromImage',
+					'create_option'    : createOption.name(),
 					'managed_disk_type': diskType
 			]
 
 			if (diskSize) {
 				map << ['disk_size_gb': diskSize]
 			}
+
+			if (lun != null) {
+				map << ['lun': lun]
+			}
 			return map
+		}
+
+		private void setLun(int index) {
+			lun = index
 		}
 	}
 
@@ -177,7 +207,10 @@ class VirtualMachine extends InfrastructureElement {
 				}
 				map << ['os_profile_linux_config': linuxProfileConfig]
 			} else {
-				map << ['os_profile_windows_config': [:]]
+				map << ['os_profile_windows_config': [
+						'winrm': [
+								'protocol': 'https'
+						]]]
 			}
 			return map
 		}
@@ -189,6 +222,12 @@ class VirtualMachine extends InfrastructureElement {
 	}
 
 	enum DiskType {
+
 		Standard_LRS, Premium_LRS
+	}
+
+	enum CreateOption {
+
+		Attach, FromImage, Empty
 	}
 }
