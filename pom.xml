@@ -6,7 +6,7 @@
 
     <groupId>com.devskiller.infra</groupId>
     <artifactId>infra-dsl</artifactId>
-    <version>1-3</version>
+    <version>1-5-SNAPSHOT</version>
 
     <name>infra-dsl</name>
     <description>Infra DSL</description>
@@ -74,9 +74,9 @@
                 <executions>
                     <execution>
                         <goals>
+                            <goal>addSources</goal>
                             <goal>compile</goal>
                             <goal>compileTests</goal>
-                            <goal>generateStubs</goal>
                             <goal>groovydoc</goal>
                         </goals>
                     </execution>
